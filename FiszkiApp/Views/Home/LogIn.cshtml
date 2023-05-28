@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutNotLoggedIn";
+}
+
+
+<h2>Please log in</h2>
+@model FiszkiApp.Models.User
+
+@using (Html.BeginForm("LogIn", "Home", FormMethod.Post))
+{
+    @Html.TextBoxFor(model => model.name)
+    @Html.TextBoxFor(model => model.pwd)
+    <button type="submit">Log in</button>
+}

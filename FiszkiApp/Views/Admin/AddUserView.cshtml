@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutAdmin";
+}
+
+@* a view for adding users *@
+
+<h2>Please log in</h2>
+@model FiszkiApp.Models.User
+
+@using (Html.BeginForm("AddUserView", "Admin", FormMethod.Post))
+{
+    @Html.TextBoxFor(model => model.name)
+    @Html.TextBoxFor(model => model.pwd)
+    <button type="submit">Add user</button>
+}
