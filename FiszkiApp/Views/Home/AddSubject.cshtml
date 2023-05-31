@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+
+<div class="text-center">
+    <h1 class="display-4">New Subject</h1>
+</div>
+
+@model FiszkiApp.Models.Subject
+
+@using (Html.BeginForm("AddSubject", "Home", FormMethod.Post))
+{
+    <h5>Subject name</h5>
+    @Html.TextBoxFor(model => model.subject)
+    
+    <h5>Image directory path</h5>
+    @Html.TextBoxFor(model => model.imagedir)
+    
+    <h3> </h3>
+    <h3> </h3>
+    <h3> </h3>
+    <button type="submit">Add subject</button>
+}

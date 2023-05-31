@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Add question</h1>
+</div>
+@model FiszkiApp.Models.Question
+
+@using (Html.BeginForm("AddQuestion", "Home", FormMethod.Post))
+{
+    <h5>Question:</h5>
+    @Html.TextBoxFor(model => model.q)
+    
+    <h5>Answer:</h5>
+    @Html.TextBoxFor(model => model.ans)
+    
+    <h5>Batch:</h5>
+    @Html.TextBoxFor(model => model.batch)
+    
+    <h5>Image:</h5>
+    @Html.TextBoxFor(model => model.image)
+    
+    <h5>Subject:</h5>
+    @Html.TextBoxFor(model => model.subject)
+    
+    <h3> </h3>
+    <h3> </h3>
+    <h3> </h3>
+    <button type="submit">Add question</button>
+}
+
+
+
+
+
+
+<div class="text-center">
+    <h1 class="display-4">Add question from file</h1>
+</div>
+
+
+@using (Html.BeginForm("AddQuestion", "Home", FormMethod.Post))
+{
+    
+    <h5>File path:</h5>
+    @Html.TextBoxFor(model => model.path)
+    
+    <h5>Subject:</h5>
+    @Html.TextBoxFor(model => model.subject)
+    
+    <h3> </h3>
+    <h3> </h3>
+    <h3> </h3>
+    <button type="submit">Add questions</button>
+}

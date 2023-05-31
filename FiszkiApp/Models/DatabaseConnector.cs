@@ -1,11 +1,14 @@
 ﻿using System.Net;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Data.Sqlite;
 
 namespace FiszkiApp.Models;
+
+//* INFO: Aby zresetować bazę danych usuń plik ./Database/database.db
 
 public sealed class DatabaseConnector
 {
@@ -143,6 +146,14 @@ public sealed class DatabaseConnector
         return true;
     }
 
+    public static void AddSingleQuestion(Question question)
+    {
+        int newQid = GetNewQid();
+        string query =
+            $"INSERT INTO questions values ({newQid}, \"{question.q}\", \"{question.ans}\", \"{question.image}\", \"{question.subject}\", \"{question.batch}\")";   
+        executeCommand(query);
+    }
+
     /*get id of a new question*/
     private static int GetNewQid()
     {
@@ -167,7 +178,7 @@ public sealed class DatabaseConnector
         
         string command = "SELECT * FROM users where userid=\"" + name + "\" and password=\"" + pwdhash + "\";";
         SqliteDataReader r = executeQuery(command);
-        
+
         return r.HasRows;
     }
 }

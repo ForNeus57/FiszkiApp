@@ -9,7 +9,14 @@
 
 @using (Html.BeginForm("LogIn", "Home", FormMethod.Post))
 {
+    <h5>name</h5>
     @Html.TextBoxFor(model => model.name)
+    
+    <h5>password</h5>
     @Html.TextBoxFor(model => model.pwd)
+    
+    <h3> </h3>
+    <h3> </h3>
+    <h3> </h3>
     <button type="submit">Log in</button>
 }

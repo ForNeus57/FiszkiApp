@@ -5,12 +5,19 @@
 
 @* a view for adding users *@
 
-<h2>Please log in</h2>
+<h2>Input name and password of a new user:</h2>
 @model FiszkiApp.Models.User
 
 @using (Html.BeginForm("AddUserView", "Admin", FormMethod.Post))
 {
+    <h5>name</h5>
     @Html.TextBoxFor(model => model.name)
+    
+    <h5>password</h5>
     @Html.TextBoxFor(model => model.pwd)
+    
+    <h3> </h3>
+    <h3> </h3>
+    <h3> </h3>
     <button type="submit">Add user</button>
 }
