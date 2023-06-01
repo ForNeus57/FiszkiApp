@@ -94,13 +94,41 @@ public class HomeController : Controller
     public IActionResult AddQuestion(Question model)
     {
         if (model.path == null) DatabaseConnector.AddSingleQuestion(model);
-        else if (DatabaseConnector.AddQuestionsFromFile(model.path, model.subject)) Console.WriteLine("Dodano pytania");
         else Console.WriteLine("Coś poszło nie tak, nie dodano pytań");
 
         if (DatabaseConnector.ActiveUser.Equals("admin")) return RedirectToAction("Index", "Admin");
         if (DatabaseConnector.ActiveUser != null) return RedirectToAction("Index", "Home");
         return RedirectToAction("LogIn", "Home");
     }
+
+	[HttpPost]
+	public ActionResult Upload(IFormFile file, string subject)
+	{
+		if (file != null && file.Length > 0)
+		{
+			// Zapisz plik w określonym miejscu lub przetwórz go
+			string filePath = Path.Combine("Data", DatabaseConnector.ActiveUser, file.FileName);
+			Directory.CreateDirectory(Path.Combine("Data", DatabaseConnector.ActiveUser));
+			using (var stream = new FileStream(filePath, FileMode.Create))
+			{
+				file.CopyTo(stream);
+			}
+
+			// Przetwarzaj temat lub przechowuj go razem z plikiem
+			if (DatabaseConnector.AddQuestionsFromFile(filePath, subject)) Console.WriteLine("Dodano pytania");
+
+			// Wykonaj dodatkowe przetwarzanie lub przekieruj do strony sukcesu
+		}
+		else
+		{
+			// Obsłuż przypadki, gdy nie został wybrany żaden plik
+			ModelState.AddModelError("file", "Proszę wybrać plik do przesłania.");
+		}
+
+		if (DatabaseConnector.ActiveUser.Equals("admin")) return RedirectToAction("Index", "Admin");
+		if (DatabaseConnector.ActiveUser != null) return RedirectToAction("Index", "Home");
+		return RedirectToAction("LogIn", "Home");
+	}
 
     public IActionResult ChooseSubject()
     {

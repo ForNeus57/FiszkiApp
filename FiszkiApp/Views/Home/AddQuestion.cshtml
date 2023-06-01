@@ -41,17 +41,12 @@
 </div>
 
 
-@using (Html.BeginForm("AddQuestion", "Home", FormMethod.Post))
+@using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    
-    <h5>File path:</h5>
-    @Html.TextBoxFor(model => model.path)
-    
+    <input type="file" name="file" />
+
     <h5>Subject:</h5>
     @Html.TextBoxFor(model => model.subject)
-    
-    <h3> </h3>
-    <h3> </h3>
-    <h3> </h3>
-    <button type="submit">Add questions</button>
+
+    <input type="submit" value="Upload" />
 }
