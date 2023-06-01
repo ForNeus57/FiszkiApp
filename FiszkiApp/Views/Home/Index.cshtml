@@ -1,10 +1,13 @@
-﻿@{
+﻿@using FiszkiApp.Controllers
+@{
     ViewData["Title"] = "Home Page";
     Layout = "_Layout";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome @DatabaseConnector.ActiveUser!</h1>
+    <h3>@HomeController.message</h3>
+    @{ HomeController.message = "";}
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Learning">Let the learning begin!</a>
     </li>

@@ -249,6 +249,7 @@ public sealed class DatabaseConnector
     public static void RemoveKnownQuestion()
     {
         Ques.RemoveAt(questionNumber);
+        if (questionNumber >= Ques.Count) questionNumber = 0;
     }
 
 	public static void getBatches() {
@@ -284,4 +285,17 @@ public sealed class DatabaseConnector
 			);
 		}
 	}
+
+    public static void AddStat()
+    {
+        // "userid", "subject", "batch", "time", "acurracy", "date"
+        TimeSpan ts = Statistics.stopwatch.Elapsed;
+        string elapsedTime = $"{ts.Hours}h{ts.Minutes}m{ts.Seconds}s";
+        string command = "insert into stats(userid, subject, batch, time, acurracy, date) values (\""+ ActiveUser+"\", \""+currentQuestion.batch+"\", \""+currentQuestion.subject+"\", \""+elapsedTime+"\", "+Statistics.batchSize/Statistics.skips+", \""+DateTime.Now.ToString("dd/MM/yyyy")+"\");";
+        Console.WriteLine(command);
+        ExecuteCommand(command);
+
+        Console.WriteLine("added stats");
+    }
+
 }

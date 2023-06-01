@@ -14,6 +14,8 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
 
+    public static string message = "";
+
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
@@ -75,7 +77,11 @@ public class HomeController : Controller
     {
         if (ModelState.IsValid)
         {
-            if (DatabaseConnector.AddSubject(model.subject, model.imagedir)) Console.WriteLine("Subject added");
+            if (DatabaseConnector.AddSubject(model.subject, model.imagedir))
+            {
+                Console.WriteLine("Subject added");
+                HomeController.message = "Subject added succesfully";
+            }
             else Console.WriteLine("Subject already exists");
         }
 
@@ -172,7 +178,7 @@ public class HomeController : Controller
             "SELECT question, answer, image, subject, batch FROM questions WHERE subject=\"" + subject + "\";"
         );
 
-        return View("Questions");
+        return RedirectToAction("Questions", "Home");
     }
 
     public IActionResult Learning()
@@ -184,9 +190,19 @@ public class HomeController : Controller
 
     public IActionResult Questions()
     {
+        if (!Statistics.stopwatchStarted)
+        {
+            Statistics.batchSize = DatabaseConnector.Ques.Count;
+            Statistics.skips = 0;
+            Statistics.stopwatchStarted = true;
+            Statistics.stopwatch.Start();
+        }
+
         DatabaseConnector.showAnswer = false;
         if (DatabaseConnector.Ques.Count == 0)
         {
+            Statistics.stopwatch.Stop();
+            DatabaseConnector.AddStat();
             return RedirectToAction("Index", "Home");
         }
 
@@ -197,7 +213,15 @@ public class HomeController : Controller
 
     public IActionResult QuestionsSkip()
     {
+        DatabaseConnector.showAnswer = true;
         DatabaseConnector.RemoveKnownQuestion();
+        if (DatabaseConnector.Ques.Count == 0)
+        {
+            Statistics.stopwatch.Stop();
+            DatabaseConnector.AddStat();
+            message = "Congratulations, you know everything!";
+            return RedirectToAction("Index", "Home");
+        }
         DatabaseConnector.NextQuestion();
 
         return View("Questions");
@@ -206,6 +230,7 @@ public class HomeController : Controller
     public IActionResult QuestionsAwnser()
     {
         DatabaseConnector.showAnswer = true;
+        Statistics.skips += 1;
         return View("Questions");
     }
 }
