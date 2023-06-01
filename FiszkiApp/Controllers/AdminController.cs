@@ -37,9 +37,9 @@ public class AdminController : Controller
     {
         if (ModelState.IsValid)
         {
-            if (!DatabaseConnector.checkLogin(model.name, model.pwd))
+            if (!DatabaseConnector.CheckLogin(model.name, model.pwd))
             {
-                DatabaseConnector.addUser(model.name, model.pwd);
+                DatabaseConnector.AddUser(model.name, model.pwd);
                 return RedirectToAction("Index", "Admin");
             }
         }

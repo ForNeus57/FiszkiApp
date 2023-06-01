@@ -8,7 +8,8 @@ using Microsoft.Data.Sqlite;
 
 namespace FiszkiApp.Models;
 
-//* INFO: Aby zresetować bazę danych usuń plik ./Database/database.db
+// * INFO: Aby zresetować bazę danych usuń plik ./Database/database.db
+// * INFO: Dane do szybkiego logowania: Login: "asd", hasło: "asd"   
 
 public sealed class DatabaseConnector
 {
@@ -17,13 +18,13 @@ public sealed class DatabaseConnector
         // _connection.Open();
         if (!File.Exists(@"./Database/database.db"))
         {
-            createDatabase();
+            CreateDatabase();
         }
         else
         {
             _connection = new SqliteConnection("Data Source=Database/database.db;");
+            _connection.Open();
         }
-        _connection.Open();
 
     }
 
@@ -31,7 +32,16 @@ public sealed class DatabaseConnector
 
     private static SqliteConnection _connection;
 
+    private static int questionNumber = -1;
+    
     public static string? ActiveUser = null;
+
+    public static List<Question> Ques = new List<Question>();
+
+    public static Question currentQuestion;
+
+    public static bool showAnswer = false;
+    
 
     public static DatabaseConnector GetInstance()
     {
@@ -40,14 +50,14 @@ public sealed class DatabaseConnector
         return _instance;
     }
 
-    private static void executeCommand(string command)
+    private static void ExecuteCommand(string command)
     {
         SqliteCommand cmd = _connection.CreateCommand();
         cmd.CommandText = command;
         cmd.ExecuteNonQuery();
     }
 
-    private static SqliteDataReader executeQuery(string query)
+    private static SqliteDataReader ExecuteQuery(string query)
     {
         SqliteCommand cmd = _connection.CreateCommand();
         cmd.CommandText = query;
@@ -56,30 +66,32 @@ public sealed class DatabaseConnector
         return reader;
     }
 
-    private static void createDatabase()
+    private static void CreateDatabase()
     {
         _connection = new SqliteConnection("Data Source=Database/database.db;");
-
-        executeCommand("DROP TABLE IF EXISTS \"users\";");
-        executeCommand("DROP TABLE IF EXISTS \"questions\";");
-        executeCommand("DROP TABLE IF EXISTS \"subjects\";");
-        executeCommand("DROP TABLE IF EXISTS \"archive\";");
-        executeCommand("DROP TABLE IF EXISTS \"stats\";");
-        executeCommand("CREATE TABLE \"users\" (\"userid\" TEXT PRIMARY KEY, \"password\" TEXT NOT NULL);");
-        executeCommand("CREATE TABLE \"subjects\" (\"subject\" TEXT PRIMARY KEY, \"imagedir\" TEXT NOT NULL);");
-        executeCommand(
+        _connection.Open();
+        
+        ExecuteCommand("DROP TABLE IF EXISTS \"users\";");
+        ExecuteCommand("DROP TABLE IF EXISTS \"questions\";");
+        ExecuteCommand("DROP TABLE IF EXISTS \"subjects\";");
+        ExecuteCommand("DROP TABLE IF EXISTS \"archive\";");
+        ExecuteCommand("DROP TABLE IF EXISTS \"stats\";");
+        ExecuteCommand("CREATE TABLE \"users\" (\"userid\" TEXT PRIMARY KEY, \"password\" TEXT NOT NULL);");
+        ExecuteCommand("CREATE TABLE \"subjects\" (\"subject\" TEXT PRIMARY KEY, \"imagedir\" TEXT NOT NULL);");
+        ExecuteCommand(
             "CREATE TABLE \"questions\" (\"qid\" INTEGER PRIMARY KEY, \"question\" TEXT NOT NULL, \"answer\" TEXT, \"image\" TEXT, \"subject\" TEXT NOT NULL , \"batch\" TEXT NOT NULL, FOREIGN KEY (subject) REFERENCES subjects(subject));");
-        executeCommand(
+        ExecuteCommand(
             "CREATE TABLE \"archive\" (\"qid\" INTEGER, \"question\" TEXT, \"answer\" TEXT, \"image\" TEXT, \"subject\" TEXT, \"batch\" TEXT, FOREIGN KEY (qid) REFERENCES questions(qid), FOREIGN KEY (subject) REFERENCES subjects(subject));");
-        executeCommand(
+        ExecuteCommand(
             "CREATE TABLE \"stats\" (\"userid\" INTEGER NOT NULL, \"subject\" TEXT NOT NULL, \"batch\" TEXT NOT NULL, \"time\" TEXT, \"acurracy\" REAL, \"date\" TEXT NOT NULL, FOREIGN KEY (userid) REFERENCES users(userid), FOREIGN KEY (subject) REFERENCES subjects(subject));");
-        addUser("admin", "admin");
-        executeCommand("insert into users values (\"asd\", \"asd\")");
+        AddUser("asd", "asd");
+        AddUser("admin", "admin");
+
     }
 
-    public static bool addUser(string name, string pwd)
+    public static bool AddUser(string name, string pwd)
     {
-        SqliteDataReader reader = executeQuery("select * from users where userid=\"" + name + "\";");
+        SqliteDataReader reader = ExecuteQuery("select * from users where userid=\"" + name + "\";");
 
         //check if user exists, if yes, we don't create another
         if (reader.HasRows) return false;
@@ -94,18 +106,18 @@ public sealed class DatabaseConnector
 
         string pwdhash = hashBuilder.ToString();
 
-        executeCommand("INSERT INTO users(userid, password) values (\"" + name + "\", \"" + pwdhash + "\");");
+        ExecuteCommand("INSERT INTO users(userid, password) values (\"" + name + "\", \"" + pwdhash + "\");");
         return true;
     }
 
     public static bool AddSubject(string name, string imagedir)
     {
-        SqliteDataReader reader = executeQuery("select * from subjects where subject=\"" + name + "\";");
+        SqliteDataReader reader = ExecuteQuery("select * from subjects where subject=\"" + name + "\";");
 
         //check if subject exists, if yes, we don't create another
         if (reader.HasRows) return false;
 
-        executeCommand("INSERT INTO subjects values(\"" + name + "\", \"" + imagedir + "\")");
+        ExecuteCommand("INSERT INTO subjects values(\"" + name + "\", \"" + imagedir + "\")");
         return true;
     }
 
@@ -118,31 +130,43 @@ public sealed class DatabaseConnector
         List<List<string>> data = new List<List<string>>();
         foreach (var line in System.IO.File.ReadLines(path))
         {
-            if (line.Count(t => t == ';') != 3) return false; //zła liczba ';'
+            if (line.Count(t => t == ';') != 3)
+            {
+                Console.WriteLine("zła liczba ';'");
+                return false;
+                
+            } 
             List<string> args = new List<string>(line.Split(';'));
-            if (args[0].Equals("")) return false; //puste pytanie
-            if (Regex.Matches(args[2], @"[\w]+\.png").Count == 0) return false; //zła nazwa pliku ze zdjęciem
+            if (args[0].Equals(""))
+            {
+                Console.WriteLine("puste pytanie");
+                return false;
+            } //puste pytanie
+            // if (Regex.Matches(args[2], @"[\w]+\.png").Count == 0) return false; //zła nazwa pliku ze zdjęciem
 
             data.Add(args);
         }
 
-        int newQid = GetNewQid();
-        string query = "INSERT INTO questions values ";
+        int newQid= GetNewQid();;
+        string query;
         string values = "";
-        bool addSemicolon = false;
 
         foreach (var row in data)
         {
-            if (addSemicolon) query += ',';
+            query = "INSERT INTO questions values "+"(" + newQid + ", \"" + row[0] + "\", \"" + row[1] + "\", \"" + row[2] + "\", \"" + subject +
+                     "\", \"" + row[3] + "\");";
+            try
+            {
+                ExecuteQuery(query);
 
-            addSemicolon = true;
-            values = "(" + newQid + ", \"" + row[0] + "\", \"" + row[1] + "\", \"" + row[2] + "\", \"" + subject +
-                     "\", \"" + row[3] + "\"),";
-            query += values;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(query);
+            }
             newQid++;
         }
 
-        executeCommand(query);
         return true;
     }
 
@@ -151,13 +175,13 @@ public sealed class DatabaseConnector
         int newQid = GetNewQid();
         string query =
             $"INSERT INTO questions values ({newQid}, \"{question.q}\", \"{question.ans}\", \"{question.image}\", \"{question.subject}\", \"{question.batch}\")";   
-        executeCommand(query);
+        ExecuteCommand(query);
     }
 
     /*get id of a new question*/
     private static int GetNewQid()
     {
-        SqliteDataReader reader = executeQuery("SELECT qid FROM questions ORDER BY qid desc limit 1;");
+        SqliteDataReader reader = ExecuteQuery("SELECT qid FROM questions ORDER BY qid desc limit 1;");
         if (!reader.HasRows) return 0;
 
         reader.Read();
@@ -165,7 +189,7 @@ public sealed class DatabaseConnector
     }
 
     /*check if this user exists*/
-    public static bool checkLogin(String name, String pwd)
+    public static bool CheckLogin(String name, String pwd)
     {
         Encoding enc = Encoding.UTF8;
         var hashBuilder = new StringBuilder();
@@ -177,8 +201,47 @@ public sealed class DatabaseConnector
         string pwdhash = hashBuilder.ToString();
         
         string command = "SELECT * FROM users where userid=\"" + name + "\" and password=\"" + pwdhash + "\";";
-        SqliteDataReader r = executeQuery(command);
-
+        SqliteDataReader r = ExecuteQuery(command);
+    
+        if (r.HasRows) Console.WriteLine("User "+name+" exists");
         return r.HasRows;
+    }
+
+    public static bool StartAddQuestions(string subject, string batch)
+    {
+        string command = "Select question, answer, image, batch from questions where subject=\"" + subject + "\" and batch=\"" + batch + "\"";
+        SqliteDataReader reader = ExecuteQuery(command);
+
+        while (reader.Read())
+        {
+            Question question = new Question(Convert.ToString(reader[reader.GetName(0)]), Convert.ToString(reader[reader.GetName(1)]), Convert.ToString(reader[reader.GetName(2)]), Convert.ToString(reader[reader.GetName(3)]), subject);
+            Ques.Add(question);
+        }
+        
+        return reader.HasRows;
+    }
+
+    public static void ShuffleQuestions()
+    {
+        Random rng = new Random();
+        Ques = Ques.OrderBy(a => rng.Next()).ToList();
+        questionNumber = 0;
+    }
+
+    public static void NextQuestion()
+    {
+        questionNumber++;
+        
+        if (questionNumber == Ques.Count)
+        {
+            ShuffleQuestions();
+        }
+        currentQuestion = Ques[questionNumber];
+                
+    }
+
+    public static void RemoveKnownQuestion()
+    {
+        Ques.RemoveAt(questionNumber);
     }
 }

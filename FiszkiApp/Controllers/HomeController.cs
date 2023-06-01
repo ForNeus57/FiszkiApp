@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.OutputCaching;
 
 namespace FiszkiApp.Controllers;
 
-// TODO: Zmienić add subject na ekran pokazujący przedioty i ich image dir, gdzieś na górze lub z boku pokazuje sięprzycisk dodaj przedmiot
-// TODO: ograniczyć wybór subjectu w dodaniu pojedynczego pytania do przedmiotów, które już figurują w bazie, możliwe, że gdzie indziej podobnie będzie przeba zrobić
+// TODO: Zmienić add subject na ekran pokazujący przedmioty i ich image dir, gdzieś na górze lub z boku pokazuje sięprzycisk dodaj przedmiot
+// TODO: ograniczyć wybór subject'u w dodaniu pojedynczego pytania do przedmiotów, które już figurują w bazie, możliwe, że gdzie indziej podobnie będzie przeba zrobić
 // TODO: errory!!!!!!!!!!!!! jak jakikolwiek błąd w ścieżce czy czymkolwiek, to databaseConnector wywala błąd
-
+// TODO: przenieść w każdej metodzie kontrolera sprawdzenie czy zalogowany na sam początek
 
 public class HomeController : Controller
 {
@@ -24,21 +24,19 @@ public class HomeController : Controller
         if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         return View();
     }
-    
+
     [HttpPost]
     [OutputCache(NoStore = true)]
     public IActionResult LogIn(User model)
     {
         if (ModelState.IsValid)
         {
-            if (DatabaseConnector.checkLogin(model.name, model.pwd))
-            DatabaseConnector.ActiveUser = model.name;
-            Console.WriteLine(model.name);
+            if (DatabaseConnector.CheckLogin(model.name, model.pwd))
+                DatabaseConnector.ActiveUser = model.name;
         }
-
+        if (DatabaseConnector.ActiveUser==null) return RedirectToAction("LogIn", "Home");
         if (DatabaseConnector.ActiveUser.Equals("admin")) return RedirectToAction("Index", "Admin");
-        if (DatabaseConnector.ActiveUser!=null) return RedirectToAction("Index", "Home");
-        return RedirectToAction("LogIn", "Home");
+        return RedirectToAction("Index", "Home");
     }
 
     public IActionResult Privacy()
@@ -69,7 +67,7 @@ public class HomeController : Controller
         if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         return View();
     }
-    
+
     [HttpPost]
     [OutputCache(NoStore = true)]
     public IActionResult AddSubject(Subject model)
@@ -81,26 +79,53 @@ public class HomeController : Controller
         }
 
         if (DatabaseConnector.ActiveUser.Equals("admin")) return RedirectToAction("Index", "Admin");
-        if (DatabaseConnector.ActiveUser!=null) return RedirectToAction("Index", "Home");
+        if (DatabaseConnector.ActiveUser != null) return RedirectToAction("Index", "Home");
         return RedirectToAction("LogIn", "Home");
     }
-    
+
     public IActionResult AddQuestion()
     {
         if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         return View();
     }
-    
+
     [HttpPost]
     [OutputCache(NoStore = true)]
     public IActionResult AddQuestion(Question model)
     {
-            if (model.path == null) DatabaseConnector.AddSingleQuestion(model);
-            else if (DatabaseConnector.AddQuestionsFromFile(model.path, model.subject)) Console.WriteLine("Dodano pytania");
-            else Console.WriteLine("Coś poszło nie tak, nie dodano pytań");
+        if (model.path == null) DatabaseConnector.AddSingleQuestion(model);
+        else if (DatabaseConnector.AddQuestionsFromFile(model.path, model.subject)) Console.WriteLine("Dodano pytania");
+        else Console.WriteLine("Coś poszło nie tak, nie dodano pytań");
 
         if (DatabaseConnector.ActiveUser.Equals("admin")) return RedirectToAction("Index", "Admin");
-        if (DatabaseConnector.ActiveUser!=null) return RedirectToAction("Index", "Home");
+        if (DatabaseConnector.ActiveUser != null) return RedirectToAction("Index", "Home");
         return RedirectToAction("LogIn", "Home");
+    }
+
+    public IActionResult ChooseSubject()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [OutputCache(NoStore = true)]
+    public IActionResult ChooseSubject(Question model)
+    {
+        if (DatabaseConnector.ActiveUser==null) return RedirectToAction("LogIn", "Home");
+        if (DatabaseConnector.StartAddQuestions(model.subject, model.batch))
+        {
+            DatabaseConnector.ShuffleQuestions();
+            return RedirectToAction("Learning", "Home");
+        }
+
+        return RedirectToAction("ChooseSubject", "Home");
+    }
+
+    public IActionResult Learning()
+    {
+        //TODO: pokazywanie pytań
+        
+        
+        return View();
     }
 }

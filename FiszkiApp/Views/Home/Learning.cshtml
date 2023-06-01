@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@DatabaseConnector.currentQuestion.q</h1>
+</div>
+@{
+    if (DatabaseConnector.showAnswer)
+    {
+        <div class="text-center">
+            <h2 class="display-4">@DatabaseConnector.currentQuestion.q</h2>
+        </div>
+    }
+    DatabaseConnector.showAnswer = !DatabaseConnector.showAnswer;
+}
+
+
+@Html.ActionLink("DisplayText", "Learning", "Home")

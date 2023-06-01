@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Please choose subject You want to learn</h1>
+</div>
+
+@model FiszkiApp.Models.Question
+
+@using (Html.BeginForm("ChooseSubject", "Home", FormMethod.Post))
+{
+    <h5>Subject:</h5>
+    @Html.TextBoxFor(model => model.subject)
+    
+    <h5>Batch:</h5>
+    @Html.TextBoxFor(model => model.batch)
+    
+    <h3> </h3>
+    <h3> </h3>
+    <h3> </h3>
+    <button type="submit">Continue</button>
+    @* <input type="button" value="Go Somewhere Else" onclick="location.href='<%: Url.Action("Learning", "Home", new { parameter1 = value1 }) %>'" /> *@
+}
