@@ -150,32 +150,59 @@ public class HomeController : Controller
 	[HttpPost]
 	public IActionResult BatchQuestions(string batch)
     {
-        //TODO: pokazywanie pytań
 		Console.WriteLine(batch);
+        DatabaseConnector.addQuestionsMemory(
+			"SELECT question, answer, image, subject, batch FROM questions WHERE batch=\""+ batch +"\";"
+		);
 		
         
         
-        return View("Questions");
+        return RedirectToAction("Questions", "Home");
     }
 
 	[HttpPost]
     public IActionResult SubjectQuestions(string subject)
     {
-        //TODO: pokazywanie pytań
 		Console.WriteLine(subject);
-
-        
+        DatabaseConnector.addQuestionsMemory(
+			"SELECT question, answer, image, subject, batch FROM questions WHERE subject=\""+ subject +"\";"
+		);
         
         return View("Questions");
     }
 
 	public IActionResult Learning()
     {
-        //TODO: pokazywanie pytań
 		DatabaseConnector.getBatches();
 		DatabaseConnector.getSubjects();
-        
-        
         return View();
+    }
+
+	public IActionResult Questions()
+    {
+		if (DatabaseConnector.showAnswer) {
+			DatabaseConnector.showAnswer = !DatabaseConnector.showAnswer;
+		} else {
+			if (DatabaseConnector.Ques.Count == 0) {
+			return View("Home");
+			} 
+			Random random = new Random();
+			DatabaseConnector.rand = random.Next(DatabaseConnector.Ques.Count);
+			DatabaseConnector.currentQuestion = DatabaseConnector.Ques[DatabaseConnector.rand];
+		}
+		
+        return View("Questions");
+    }
+
+	public IActionResult QuestionsSkip()
+    {
+		DatabaseConnector.Ques.RemoveAt(DatabaseConnector.rand);
+
+        return View("Questions");
+    }
+	public IActionResult QuestionsAwnser()
+    {
+		DatabaseConnector.showAnswer = true;
+        return View("Questions");
     }
 }

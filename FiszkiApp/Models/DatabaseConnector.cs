@@ -46,7 +46,8 @@ public sealed class DatabaseConnector
 
 	public static List<string>? batches;
 	public static List<string>? subjects;
-    
+
+	public static int rand = -1;
 
     public static DatabaseConnector GetInstance()
     {
@@ -264,6 +265,22 @@ public sealed class DatabaseConnector
 		while (reader.Read())
         {
 			DatabaseConnector.subjects.Add(Convert.ToString(reader[reader.GetName(0)]));
+		}
+	}
+
+	public static void addQuestionsMemory(String query) {
+		SqliteDataReader reader = ExecuteQuery(query);
+		DatabaseConnector.Ques = new List<Question>();
+		while(reader.Read()) {
+			DatabaseConnector.Ques.Add(
+				new Question(
+					Convert.ToString(reader[reader.GetName(0)]),
+					Convert.ToString(reader[reader.GetName(1)]),
+					Convert.ToString(reader[reader.GetName(2)]),
+					Convert.ToString(reader[reader.GetName(3)]),
+					Convert.ToString(reader[reader.GetName(4)])
+				)
+			);
 		}
 	}
 }
