@@ -34,7 +34,8 @@ public class HomeController : Controller
             if (DatabaseConnector.CheckLogin(model.name, model.pwd))
                 DatabaseConnector.ActiveUser = model.name;
         }
-        if (DatabaseConnector.ActiveUser==null) return RedirectToAction("LogIn", "Home");
+
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         if (DatabaseConnector.ActiveUser.Equals("admin")) return RedirectToAction("Index", "Admin");
         return RedirectToAction("Index", "Home");
     }
@@ -93,40 +94,44 @@ public class HomeController : Controller
     [OutputCache(NoStore = true)]
     public IActionResult AddQuestion(Question model)
     {
-        if (model.path == null) {
-			DatabaseConnector.AddSingleQuestion(model);
-			DatabaseConnector.Status = "Question added!";
-		}
+        if (model.path == null)
+        {
+            DatabaseConnector.AddSingleQuestion(model);
+            DatabaseConnector.Status = "Question added!";
+        }
         else DatabaseConnector.Status = "Question is incorect!";
 
         return View();
     }
 
-	[HttpPost]
-	public ActionResult Upload(IFormFile file, string subject)
-	{
-		if (file != null && file.Length > 0)
-		{
-			// Zapisz plik w określonym miejscu lub przetwórz go
-			string filePath = Path.Combine("Data", DatabaseConnector.ActiveUser, file.FileName);
-			Directory.CreateDirectory(Path.Combine("Data", DatabaseConnector.ActiveUser));
-			using (var stream = new FileStream(filePath, FileMode.Create))
-			{
-				file.CopyTo(stream);
-			}
+    [HttpPost]
+    public ActionResult Upload(IFormFile file, string subject)
+    {
+        if (file != null && file.Length > 0)
+        {
+            // Zapisz plik w określonym miejscu lub przetwórz go
+            string filePath = Path.Combine("Data", DatabaseConnector.ActiveUser, file.FileName);
+            Directory.CreateDirectory(Path.Combine("Data", DatabaseConnector.ActiveUser));
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
 
-			// Przetwarzaj temat lub przechowuj go razem z plikiem
-			if (DatabaseConnector.AddQuestionsFromFile(filePath, subject)) {
-				DatabaseConnector.Status = "File added!";
-			} else {
-				DatabaseConnector.Status = "File is incorrect!";
-			}
+            // Przetwarzaj temat lub przechowuj go razem z plikiem
+            if (DatabaseConnector.AddQuestionsFromFile(filePath, subject))
+            {
+                DatabaseConnector.Status = "File added!";
+            }
+            else
+            {
+                DatabaseConnector.Status = "File is incorrect!";
+            }
 
-			// Wykonaj dodatkowe przetwarzanie lub przekieruj do strony sukcesu
-		}
+            // Wykonaj dodatkowe przetwarzanie lub przekieruj do strony sukcesu
+        }
 
-		return View("AddQuestion");
-	}
+        return View("AddQuestion");
+    }
 
     public IActionResult ChooseSubject()
     {
@@ -137,7 +142,7 @@ public class HomeController : Controller
     [OutputCache(NoStore = true)]
     public IActionResult ChooseSubject(Question model)
     {
-        if (DatabaseConnector.ActiveUser==null) return RedirectToAction("LogIn", "Home");
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         if (DatabaseConnector.StartAddQuestions(model.subject, model.batch))
         {
             DatabaseConnector.ShuffleQuestions();
@@ -147,62 +152,60 @@ public class HomeController : Controller
         return RedirectToAction("ChooseSubject", "Home");
     }
 
-	[HttpPost]
-	public IActionResult BatchQuestions(string batch)
+    [HttpPost]
+    public IActionResult BatchQuestions(string batch)
     {
-		Console.WriteLine(batch);
+        Console.WriteLine(batch);
         DatabaseConnector.addQuestionsMemory(
-			"SELECT question, answer, image, subject, batch FROM questions WHERE batch=\""+ batch +"\";"
-		);
-		
-        
-        
+            "SELECT question, answer, image, subject, batch FROM questions WHERE batch=\"" + batch + "\";"
+        );
+
+
         return RedirectToAction("Questions", "Home");
     }
 
-	[HttpPost]
+    [HttpPost]
     public IActionResult SubjectQuestions(string subject)
     {
-		Console.WriteLine(subject);
+        Console.WriteLine(subject);
         DatabaseConnector.addQuestionsMemory(
-			"SELECT question, answer, image, subject, batch FROM questions WHERE subject=\""+ subject +"\";"
-		);
-        
+            "SELECT question, answer, image, subject, batch FROM questions WHERE subject=\"" + subject + "\";"
+        );
+
         return View("Questions");
     }
 
-	public IActionResult Learning()
+    public IActionResult Learning()
     {
-		DatabaseConnector.getBatches();
-		DatabaseConnector.getSubjects();
+        DatabaseConnector.getBatches();
+        DatabaseConnector.getSubjects();
         return View();
     }
 
-	public IActionResult Questions()
+    public IActionResult Questions()
     {
-		if (DatabaseConnector.showAnswer) {
-			DatabaseConnector.showAnswer = !DatabaseConnector.showAnswer;
-		} else {
-			if (DatabaseConnector.Ques.Count == 0) {
-			return View("Home");
-			} 
-			Random random = new Random();
-			DatabaseConnector.rand = random.Next(DatabaseConnector.Ques.Count);
-			DatabaseConnector.currentQuestion = DatabaseConnector.Ques[DatabaseConnector.rand];
-		}
-		
-        return View("Questions");
-    }
+        DatabaseConnector.showAnswer = false;
+        if (DatabaseConnector.Ques.Count == 0)
+        {
+            return RedirectToAction("Index", "Home");
+        }
 
-	public IActionResult QuestionsSkip()
-    {
-		DatabaseConnector.Ques.RemoveAt(DatabaseConnector.rand);
+        DatabaseConnector.NextQuestion();
 
         return View("Questions");
     }
-	public IActionResult QuestionsAwnser()
+
+    public IActionResult QuestionsSkip()
     {
-		DatabaseConnector.showAnswer = true;
+        DatabaseConnector.RemoveKnownQuestion();
+        DatabaseConnector.NextQuestion();
+
+        return View("Questions");
+    }
+
+    public IActionResult QuestionsAwnser()
+    {
+        DatabaseConnector.showAnswer = true;
         return View("Questions");
     }
 }

@@ -2,30 +2,43 @@
     ViewData["Title"] = "Home Page";
     Layout = "_Layout";
 }
-
+<meta charset="windows-1250">
 <div class="text-center">
-    <pre>@DatabaseConnector.currentQuestion.q</pre>
+    <h2>@DatabaseConnector.currentQuestion.q</h2>
+    <br>
 </div>
 @{
     if (DatabaseConnector.showAnswer)
     {
         <div class="text-center">
-            <pre>@DatabaseConnector.currentQuestion.ans</pre>
+            <h4>@DatabaseConnector.currentQuestion.ans</h4>
         </div>
     }
 }
+<br>
+<br>
+<div class="text-center">
+    @if (!DatabaseConnector.showAnswer)
+    {
+        @using (Html.BeginForm("QuestionsAwnser", "Home", FormMethod.Post))
+        {
+            <button type="submit">Show Awnser</button>
+        }
+    }
+</div>
 
-@using (Html.BeginForm("QuestionsAwnser", "Home", FormMethod.Post))
-{
-	<button type="submit">Show Awnser</button>
-}
 
-@using (Html.BeginForm("Questions", "Home", FormMethod.Post))
-{
-	<button type="submit">Next Question</button>
-}
-
-@using (Html.BeginForm("QuestionsSkip", "Home", FormMethod.Post))
-{
-	<button type="submit">Skip Question</button>
-}
+<div class="text-center">
+    @if (DatabaseConnector.showAnswer)
+    {
+        @using (Html.BeginForm("Questions", "Home", FormMethod.Post))
+        {
+            <button type="submit">Next Question</button>
+        }
+        <br>
+        @using (Html.BeginForm("QuestionsSkip", "Home", FormMethod.Post))
+        {
+            <button type="submit">Skip Question</button>
+        }
+    }
+</div>

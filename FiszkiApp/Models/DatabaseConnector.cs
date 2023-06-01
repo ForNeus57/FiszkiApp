@@ -240,6 +240,7 @@ public sealed class DatabaseConnector
         if (questionNumber == Ques.Count)
         {
             ShuffleQuestions();
+            questionNumber = 0;
         }
         currentQuestion = Ques[questionNumber];
                 
