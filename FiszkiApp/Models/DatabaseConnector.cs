@@ -41,6 +41,11 @@ public sealed class DatabaseConnector
     public static Question currentQuestion;
 
     public static bool showAnswer = false;
+
+	public static string? Status = null;
+
+	public static List<string>? batches;
+	public static List<string>? subjects;
     
 
     public static DatabaseConnector GetInstance()
@@ -86,7 +91,6 @@ public sealed class DatabaseConnector
             "CREATE TABLE \"stats\" (\"userid\" INTEGER NOT NULL, \"subject\" TEXT NOT NULL, \"batch\" TEXT NOT NULL, \"time\" TEXT, \"acurracy\" REAL, \"date\" TEXT NOT NULL, FOREIGN KEY (userid) REFERENCES users(userid), FOREIGN KEY (subject) REFERENCES subjects(subject));");
         AddUser("asd", "asd");
         AddUser("admin", "admin");
-
     }
 
     public static bool AddUser(string name, string pwd)
@@ -244,4 +248,22 @@ public sealed class DatabaseConnector
     {
         Ques.RemoveAt(questionNumber);
     }
+
+	public static void getBatches() {
+		SqliteDataReader reader = ExecuteQuery("SELECT batch FROM questions GROUP BY batch;");
+		DatabaseConnector.batches = new List<string>();
+		while (reader.Read())
+        {
+			DatabaseConnector.batches.Add(Convert.ToString(reader[reader.GetName(0)]));
+		}
+	}
+
+	public static void getSubjects() {
+		SqliteDataReader reader = ExecuteQuery("SELECT subject FROM questions GROUP BY subject;");
+		DatabaseConnector.subjects = new List<string>();
+		while (reader.Read())
+        {
+			DatabaseConnector.subjects.Add(Convert.ToString(reader[reader.GetName(0)]));
+		}
+	}
 }

@@ -4,17 +4,37 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">@DatabaseConnector.currentQuestion.q</h1>
+    <h1 class="display-4">Choose What Questions do you want to learn</h1>
 </div>
+
+<pre>Availabe batches to choose:</pre>
+
 @{
-    if (DatabaseConnector.showAnswer)
-    {
-        <div class="text-center">
-            <h2 class="display-4">@DatabaseConnector.currentQuestion.q</h2>
-        </div>
-    }
-    DatabaseConnector.showAnswer = !DatabaseConnector.showAnswer;
+	foreach (string b in DatabaseConnector.batches)
+	{
+		<pre>- "@b"</pre>
+	}
 }
 
+@using (Html.BeginForm("BatchQuestions", "Home", FormMethod.Post))
+{
+	<h5>Batch name:</h5>
+	<input name="batch" id="dane" class="form-control" />
+    <input type="submit" value="Submit" />
+}
 
-@Html.ActionLink("DisplayText", "Learning", "Home")
+<pre>Availabe subjects to choose:</pre>
+
+@{
+	foreach (string b in DatabaseConnector.subjects)
+	{
+		<pre>- "@b"</pre>
+	}
+}
+
+@using (Html.BeginForm("SubjectQuestions", "Home", FormMethod.Post))
+{
+	<h5>Subject name:</h5>
+	<input name="subject" id="dane" class="form-control" />
+    <input type="submit" value="Submit" />
+}

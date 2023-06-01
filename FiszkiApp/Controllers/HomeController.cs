@@ -93,12 +93,13 @@ public class HomeController : Controller
     [OutputCache(NoStore = true)]
     public IActionResult AddQuestion(Question model)
     {
-        if (model.path == null) DatabaseConnector.AddSingleQuestion(model);
-        else Console.WriteLine("Coś poszło nie tak, nie dodano pytań");
+        if (model.path == null) {
+			DatabaseConnector.AddSingleQuestion(model);
+			DatabaseConnector.Status = "Question added!";
+		}
+        else DatabaseConnector.Status = "Question is incorect!";
 
-        if (DatabaseConnector.ActiveUser.Equals("admin")) return RedirectToAction("Index", "Admin");
-        if (DatabaseConnector.ActiveUser != null) return RedirectToAction("Index", "Home");
-        return RedirectToAction("LogIn", "Home");
+        return View();
     }
 
 	[HttpPost]
@@ -115,19 +116,16 @@ public class HomeController : Controller
 			}
 
 			// Przetwarzaj temat lub przechowuj go razem z plikiem
-			if (DatabaseConnector.AddQuestionsFromFile(filePath, subject)) Console.WriteLine("Dodano pytania");
+			if (DatabaseConnector.AddQuestionsFromFile(filePath, subject)) {
+				DatabaseConnector.Status = "File added!";
+			} else {
+				DatabaseConnector.Status = "File is incorrect!";
+			}
 
 			// Wykonaj dodatkowe przetwarzanie lub przekieruj do strony sukcesu
 		}
-		else
-		{
-			// Obsłuż przypadki, gdy nie został wybrany żaden plik
-			ModelState.AddModelError("file", "Proszę wybrać plik do przesłania.");
-		}
 
-		if (DatabaseConnector.ActiveUser.Equals("admin")) return RedirectToAction("Index", "Admin");
-		if (DatabaseConnector.ActiveUser != null) return RedirectToAction("Index", "Home");
-		return RedirectToAction("LogIn", "Home");
+		return View("AddQuestion");
 	}
 
     public IActionResult ChooseSubject()
@@ -149,9 +147,33 @@ public class HomeController : Controller
         return RedirectToAction("ChooseSubject", "Home");
     }
 
-    public IActionResult Learning()
+	[HttpPost]
+	public IActionResult BatchQuestions(string batch)
     {
         //TODO: pokazywanie pytań
+		Console.WriteLine(batch);
+		
+        
+        
+        return View("Questions");
+    }
+
+	[HttpPost]
+    public IActionResult SubjectQuestions(string subject)
+    {
+        //TODO: pokazywanie pytań
+		Console.WriteLine(subject);
+
+        
+        
+        return View("Questions");
+    }
+
+	public IActionResult Learning()
+    {
+        //TODO: pokazywanie pytań
+		DatabaseConnector.getBatches();
+		DatabaseConnector.getSubjects();
         
         
         return View();
