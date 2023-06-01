@@ -213,8 +213,9 @@ public class HomeController : Controller
 
     public IActionResult QuestionsSkip()
     {
-        DatabaseConnector.showAnswer = true;
+        DatabaseConnector.showAnswer = false;
         DatabaseConnector.RemoveKnownQuestion();
+        Statistics.skips += 1;
         if (DatabaseConnector.Ques.Count == 0)
         {
             Statistics.stopwatch.Stop();
@@ -232,5 +233,11 @@ public class HomeController : Controller
         DatabaseConnector.showAnswer = true;
         Statistics.skips += 1;
         return View("Questions");
+    }
+
+    public IActionResult Stats()
+    {
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
+        return View();
     }
 }

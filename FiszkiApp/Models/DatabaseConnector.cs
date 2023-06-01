@@ -291,11 +291,25 @@ public sealed class DatabaseConnector
         // "userid", "subject", "batch", "time", "acurracy", "date"
         TimeSpan ts = Statistics.stopwatch.Elapsed;
         string elapsedTime = $"{ts.Hours}h{ts.Minutes}m{ts.Seconds}s";
-        string command = "insert into stats(userid, subject, batch, time, acurracy, date) values (\""+ ActiveUser+"\", \""+currentQuestion.batch+"\", \""+currentQuestion.subject+"\", \""+elapsedTime+"\", "+Statistics.batchSize/Statistics.skips+", \""+DateTime.Now.ToString("dd/MM/yyyy")+"\");";
+        string command = "insert into stats(userid, subject, batch, time, acurracy, date) values (\""+ ActiveUser+"\", \""+currentQuestion.batch+"\", \""+currentQuestion.subject+"\", \""+elapsedTime+"\", "+
+                         (Statistics.batchSize / Statistics.skips).ToString().Replace(',', '.')+", \""+DateTime.Now.ToString("dd/MM/yyyy")+"\");";
         Console.WriteLine(command);
         ExecuteCommand(command);
 
         Console.WriteLine("added stats");
     }
+
+    public static List<Statistics> getStats()
+    {
+        List<Statistics> stats = new List<Statistics>();
+        SqliteDataReader reader = ExecuteQuery("select * from stats order by acurracy desc ;");
+        while (reader.Read())
+        {
+            stats.Add(new Statistics(Convert.ToString(reader[reader.GetName(0)]), Convert.ToString(reader[reader.GetName(1)]), Convert.ToString(reader[reader.GetName(2)]), Convert.ToString(reader[reader.GetName(3)]), Convert.ToString(reader[reader.GetName(4)]), Convert.ToString(reader[reader.GetName(5)])));
+            
+        }
+        
+        return stats;
+    } 
 
 }
