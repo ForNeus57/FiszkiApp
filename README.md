@@ -122,7 +122,7 @@ pytanie;poprawna_odpowiedź;temat_jaki_pytanie_dotyczy;identyfikator_porcji
 
 -	Sprawdzanie jaki użytkownik ile włożył w danych.
 
-## Daza danych
+## Baza danych
 ----
 
 ![alt](./Docs/database/Tables_diagram-0.png)
