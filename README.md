@@ -52,13 +52,7 @@ http://localhost:5273
 			"password"	:	"admin"
 		}
 		```
-	-	Aby uzyskać dostęp do konta zwykłego użytkownika podaj następujące dane:
-		```json
-		{
-			"name"		:	"asd",
-			"password"	:	"asd"
-		}
-		```
+	-	Aby uzyskać dostęp do konta zwykłego użytkownika podaj dane użytkownika utworzonego przez admina
 7.	Przejrzyj funkcjonalności. Ich szczegółowe opisy znajdują się poniżej.
 
 ![alt](./Docs/Menu.png)
@@ -133,4 +127,4 @@ pytanie;poprawna_odpowiedź;temat_jaki_pytanie_dotyczy;identyfikator_porcji
 # Autorzy
 
 1.	Dominik Breksa - `dominikbreksa@student.agh.edu.pl` - [\[Link do githuba\]](https://github.com/ForNeus57)
-2.	Szymon Jurecki - [\[Link do githuba\]](https://github.com/CaIiguIa)
+2.	Szymon Jurecki - `sdjurecki@student.agh.edu.pl` - [\[Link do githuba\]](https://github.com/CaIiguIa)
