@@ -85,11 +85,11 @@ public sealed class DatabaseConnector
         ExecuteCommand("CREATE TABLE \"users\" (\"userid\" TEXT PRIMARY KEY, \"password\" TEXT NOT NULL);");
         ExecuteCommand("CREATE TABLE \"subjects\" (\"subject\" TEXT PRIMARY KEY, \"imagedir\" TEXT NOT NULL);");
         ExecuteCommand(
-            "CREATE TABLE \"questions\" (\"qid\" INTEGER PRIMARY KEY, \"question\" TEXT NOT NULL, \"answer\" TEXT, \"image\" TEXT, \"subject\" TEXT NOT NULL , \"batch\" TEXT NOT NULL, FOREIGN KEY (subject) REFERENCES subjects(subject));");
+            "CREATE TABLE \"batches\" (\"batch\" TEXT PRIMARY KEY , \"path\" TEXT, \"userid\" TEXT not null, FOREIGN KEY (userid) REFERENCES users(userid));");
         ExecuteCommand(
-            "CREATE TABLE \"archive\" (\"qid\" INTEGER, \"question\" TEXT, \"answer\" TEXT, \"image\" TEXT, \"subject\" TEXT, \"batch\" TEXT, FOREIGN KEY (qid) REFERENCES questions(qid), FOREIGN KEY (subject) REFERENCES subjects(subject));");
+            "CREATE TABLE \"questions\" (\"qid\" INTEGER PRIMARY KEY, \"question\" TEXT NOT NULL, \"answer\" TEXT, \"image\" TEXT, \"subject\" TEXT NOT NULL , \"batch\" TEXT NOT NULL, FOREIGN KEY (subject) REFERENCES subjects(subject), FOREIGN KEY (batch) REFERENCES batches(batch));");
         ExecuteCommand(
-            "CREATE TABLE \"stats\" (\"userid\" INTEGER NOT NULL, \"subject\" TEXT NOT NULL, \"batch\" TEXT NOT NULL, \"time\" TEXT, \"acurracy\" REAL, \"date\" TEXT NOT NULL, FOREIGN KEY (userid) REFERENCES users(userid), FOREIGN KEY (subject) REFERENCES subjects(subject));");
+            "CREATE TABLE \"stats\" (\"userid\" INTEGER NOT NULL, \"subject\" TEXT NOT NULL, \"batch\" TEXT NOT NULL, \"time\" TEXT, \"acurracy\" REAL, \"date\" TEXT NOT NULL, FOREIGN KEY (userid) REFERENCES users(userid), FOREIGN KEY (subject) REFERENCES subjects(subject), FOREIGN KEY (batch) REFERENCES batches(batch));");
         AddUser("asd", "asd");
         AddUser("admin", "admin");
     }
