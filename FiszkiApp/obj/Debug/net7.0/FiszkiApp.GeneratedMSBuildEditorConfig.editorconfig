@@ -9,89 +9,89 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = FiszkiApp
 build_property.RootNamespace = FiszkiApp
-build_property.ProjectDir = C:\Users\domin\OneDrive\Pulpit\Projects\2023\Java-CSharp\C#\Laboratories\FiszkiApp\FiszkiApp\
+build_property.ProjectDir = c:\Users\domin\OneDrive\Pulpit\Projects\2023\Java-CSharp\C#\Laboratories\FiszkiApp\FiszkiApp\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\domin\OneDrive\Pulpit\Projects\2023\Java-CSharp\C#\Laboratories\FiszkiApp\FiszkiApp
+build_property.MSBuildProjectDirectory = c:\Users\domin\OneDrive\Pulpit\Projects\2023\Java-CSharp\C#\Laboratories\FiszkiApp\FiszkiApp
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Admin/AddUserView.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Admin/AddUserView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkVXNlclZpZXcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Admin/Index.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/AddQuestion.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/AddQuestion.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBZGRRdWVzdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/AddSubject.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/AddSubject.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBZGRTdWJqZWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/ChooseSubject.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/ChooseSubject.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDaG9vc2VTdWJqZWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/Contributions.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/Contributions.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250cmlidXRpb25zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/Index.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/Learning.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/Learning.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMZWFybmluZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/LogIn.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/LogIn.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dJbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/Privacy.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/Questions.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/Questions.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxRdWVzdGlvbnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/Stats.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Home/Stats.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdGF0cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/IO/Login.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/IO/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSU9cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Shared/Error.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Shared/_ValidationScriptsPartial.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/_ViewImports.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/_ViewStart.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Shared/_Layout.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-3e1wbr3umw
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Shared/_LayoutAdmin.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Shared/_LayoutAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-ce25dsiuba
 
-[C:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Shared/_LayoutNotLoggedIn.cshtml]
+[c:/Users/domin/OneDrive/Pulpit/Projects/2023/Java-CSharp/C\#/Laboratories/FiszkiApp/FiszkiApp/Views/Shared/_LayoutNotLoggedIn.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXROb3RMb2dnZWRJbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-w2xcm4k52a
