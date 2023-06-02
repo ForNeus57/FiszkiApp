@@ -240,4 +240,10 @@ public class HomeController : Controller
         if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         return View();
     }
+
+    public IActionResult Contributions()
+    {
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
+        return View();
+    }
 }

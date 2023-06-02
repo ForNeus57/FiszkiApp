@@ -310,6 +310,25 @@ public sealed class DatabaseConnector
         }
         
         return stats;
-    } 
+    }
+
+    public static List<Contributor> getContributions()
+    {
+        List<Contributor> cont = new List<Contributor>();
+        SqliteDataReader reader = ExecuteQuery("select userid, count(*) from batch group by userid limit 1; ");
+        while (reader.Read())
+        {
+            cont.Add(new Contributor(Convert.ToString(reader[reader.GetName(0)]), Convert.ToInt16(reader[reader.GetName(1)])));
+            
+        }
+        reader = ExecuteQuery("select userid, count(*) from subjects group by userid limit 1; ");
+        while (reader.Read())
+        {
+            cont.Add(new Contributor(Convert.ToString(reader[reader.GetName(0)]), Convert.ToInt16(reader[reader.GetName(1)])));
+            
+        }
+
+        return cont;
+    }
 
 }

@@ -1,0 +1,35 @@
+﻿@using FiszkiApp.Controllers
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+
+<div class="text-center">
+    @{ var s = DatabaseConnector.getContributions(); }
+
+    <h1 class="display-4">Subject contributions</h1>
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Username </th>
+            <th>Count </th>
+        </tr>
+        <tr>
+            <td>@s[0].name</td>
+            <td>@s[0].contrNumber</td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <br>
+    <h1 class="display-4">Batch contributions</h1>
+        <table class="table table-bordered table-responsive table-hover">
+            <tr>
+                <th>Username </th>
+                <th>Count </th>
+            </tr>
+            <tr>
+                <td>@s[1].name</td>
+                <td>@s[1].contrNumber</td>
+            </tr>
+        </table>
+</div>
