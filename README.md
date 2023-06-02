@@ -14,10 +14,11 @@
 		-	[Dodawanie po jednym pytaniu](#dodawanie-po-jednym-pytaniu)
 		-	[Dodawanie poprzez wysłanie pliku](#dodawanie-poprzez-wysłanie-pliku)
 	-	[Dodawanie tematów](#dodawanie-tematów-fiszek)
-	-	[Nakua](#uczenie)
+	-	[Nauka](#uczenie)
 	-	[Zbieranie statystyk](#sprawdzanie-statystyk)
-5. [Dodatkowe informacje](#dodatkowe-informacje)
-6. [Autorzy](#autorzy)
+5. [Baza danych](#baza-danych)
+6. [Dodatkowe informacje](#dodatkowe-informacje)
+7. [Autorzy](#autorzy)
 
 ## Opis
 ----
@@ -120,6 +121,11 @@ pytanie;poprawna_odpowiedź;temat_jaki_pytanie_dotyczy;identyfikator_porcji
 -	Sprawdzenie jak przebiegł proces uczenia. Wyświetlane są dane dotyczące przebiegu uczenia.
 
 -	Sprawdzanie jaki użytkownik ile włożył w danych.
+
+## Daza danych
+----
+
+![alt](./Docs/database/Tables_diagram-0.png)
 
 ## Dodatkowe informacje
 ----
