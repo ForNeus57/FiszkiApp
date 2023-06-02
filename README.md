@@ -13,9 +13,9 @@
 	-	[Dodawanie fiszek](#dodawanie-fiszek)
 		-	[Dodawanie po jednym pytaniu](#dodawanie-po-jednym-pytaniu)
 		-	[Dodawanie poprzez wysłanie pliku](#dodawanie-poprzez-wysłanie-pliku)
-	-	[Dodawanie tematów](#dodawanie-fiszek)
-	-	[Nakua](#dodawanie-fiszek)
-	-	[Zbieranie statystyk](#dodawanie-fiszek)
+	-	[Dodawanie tematów](#dodawanie-tematów-fiszek)
+	-	[Nakua](#uczenie)
+	-	[Zbieranie statystyk](#sprawdzanie-statystyk)
 5. [Dodatkowe informacje](#dodatkowe-informacje)
 6. [Autorzy](#autorzy)
 
