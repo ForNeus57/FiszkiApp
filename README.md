@@ -14,7 +14,7 @@
 		-	[Dodawanie po jednym pytaniu](#dodawanie-po-jednym-pytaniu)
 		-	[Dodawanie poprzez wysłanie pliku](#dodawanie-poprzez-wysłanie-pliku)
 	-	[Dodawanie tematów](#dodawanie-tematów-fiszek)
-	-	[Nakua](#uczenie)
+	-	[Nauka](#uczenie)
 	-	[Zbieranie statystyk](#sprawdzanie-statystyk)
 5. [Baza danych](#baza-danych)
 6. [Dodatkowe informacje](#dodatkowe-informacje)
