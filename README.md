@@ -53,6 +53,12 @@ http://localhost:5273
 		}
 		```
 	-	Aby uzyskać dostęp do konta zwykłego użytkownika podaj dane użytkownika utworzonego przez admina
+	```json
+	{
+		"name"		:	"asd",
+		"password"	:	"asd"
+	}
+	```
 7.	Przejrzyj funkcjonalności. Ich szczegółowe opisy znajdują się poniżej.
 
 ![alt](./Docs/Menu.png)
@@ -111,7 +117,9 @@ pytanie;poprawna_odpowiedź;temat_jaki_pytanie_dotyczy;identyfikator_porcji
 -	Nauka toczy się do momentu, aż nie skończą się pytania.
 
 ### Sprawdzanie statystyk
+-	Sprawdzenie jak przebiegł proces uczenia. Wyświetlane są dane dotyczące przebiegu uczenia.
 
+-	Sprawdzanie jaki użytkownik ile włożył w danych.
 
 ## Dodatkowe informacje
 ----
@@ -119,7 +127,7 @@ pytanie;poprawna_odpowiedź;temat_jaki_pytanie_dotyczy;identyfikator_porcji
 -	Szczególowe informacje dotyczące jak wyglądają tabele w bazie danych **(SQLite)** znajdują się w folderze:
 
 	```bash
-	cd .\Docs\database
+	cd ./Docs/database
 	```
 
 -	W przypadku wszelkich nie prawidłowości prośba jest aby zgłosić je do jednego z autorów.
