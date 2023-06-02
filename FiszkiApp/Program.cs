@@ -26,6 +26,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-DatabaseConnector.GetInstance();
+DatabaseConnector dc =DatabaseConnector.GetInstance();
 
 app.Run();
