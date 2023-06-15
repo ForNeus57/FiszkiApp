@@ -44,10 +44,13 @@ public sealed class DatabaseConnector
 
 	public static string? Status = null;
 
-	public static List<string>? batches;
-	public static List<string>? subjects;
+	public static List<string> batches = new List<string>();
+	public static List<string> subjects = new List<string>();
 
 	public static int rand = -1;
+
+    public static string subject;
+    public static string batch;
 
     public static DatabaseConnector GetInstance()
     {
@@ -59,17 +62,36 @@ public sealed class DatabaseConnector
     private static void ExecuteCommand(string command)
     {
         SqliteCommand cmd = _connection.CreateCommand();
-        cmd.CommandText = command;
-        cmd.ExecuteNonQuery();
+
+        try
+        {
+            cmd.CommandText = command;
+            cmd.ExecuteNonQuery();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(cmd.CommandText);
+            throw;
+        }
+        
     }
 
     private static SqliteDataReader ExecuteQuery(string query)
     {
         SqliteCommand cmd = _connection.CreateCommand();
-        cmd.CommandText = query;
-        SqliteDataReader reader = cmd.ExecuteReader();
+        try
+        {
+            cmd.CommandText = query;
+            SqliteDataReader reader = cmd.ExecuteReader();
+            return reader;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(cmd.CommandText);
+            throw;
+        }
 
-        return reader;
+        
     }
 
     private static void CreateDatabase()
@@ -87,9 +109,11 @@ public sealed class DatabaseConnector
         ExecuteCommand(
             "CREATE TABLE \"batches\" (\"batch\" TEXT PRIMARY KEY , \"path\" TEXT, \"userid\" TEXT not null, FOREIGN KEY (userid) REFERENCES users(userid));");
         ExecuteCommand(
-            "CREATE TABLE \"questions\" (\"qid\" INTEGER PRIMARY KEY, \"question\" TEXT NOT NULL, \"answer\" TEXT, \"image\" TEXT, \"subject\" TEXT NOT NULL , \"batch\" TEXT NOT NULL, FOREIGN KEY (subject) REFERENCES subjects(subject), FOREIGN KEY (batch) REFERENCES batches(batch));");
+            "CREATE TABLE \"questions\" (\"qid\" INTEGER PRIMARY KEY, \"question\" TEXT NOT NULL, \"answer\" TEXT, \"image\" TEXT, \"subject\" TEXT NOT NULL , \"batch\" TEXT NOT NULL, "+
+            "FOREIGN KEY (subject) REFERENCES subjects(subject), FOREIGN KEY (batch) REFERENCES batches(batch));");
         ExecuteCommand(
-            "CREATE TABLE \"stats\" (\"userid\" INTEGER NOT NULL, \"subject\" TEXT NOT NULL, \"batch\" TEXT NOT NULL, \"time\" TEXT, \"acurracy\" REAL, \"date\" TEXT NOT NULL, FOREIGN KEY (userid) REFERENCES users(userid), FOREIGN KEY (subject) REFERENCES subjects(subject), FOREIGN KEY (batch) REFERENCES batches(batch));");
+            "CREATE TABLE \"stats\" (\"userid\" INTEGER NOT NULL, \"subject\" TEXT NOT NULL, \"batch\" TEXT NOT NULL, \"time\" TEXT, \"acurracy\" REAL, \"date\" TEXT NOT NULL, FOREIGN KEY (userid) "+
+            "REFERENCES users(userid), FOREIGN KEY (subject) REFERENCES subjects(subject), FOREIGN KEY (batch) REFERENCES batches(batch));");
         AddUser("asd", "asd");
         AddUser("admin", "admin");
     }
@@ -135,18 +159,19 @@ public sealed class DatabaseConnector
         List<List<string>> data = new List<List<string>>();
         foreach (var line in System.IO.File.ReadLines(path))
         {
-            if (line.Count(t => t == ';') != 3)
-            {
-                Console.WriteLine("zła liczba ';'");
-                return false;
-                
-            } 
             List<string> args = new List<string>(line.Split(';'));
             if (args[0].Equals(""))
             {
                 Console.WriteLine("puste pytanie");
+                continue;
+            }
+            if (line.Count(t => t == ';') != 3)
+            {
+                Console.WriteLine("zła liczba ';' : "+line);
                 return false;
-            } //puste pytanie
+                
+            }
+            //puste pytanie
             // if (Regex.Matches(args[2], @"[\w]+\.png").Count == 0) return false; //zła nazwa pliku ze zdjęciem
 
             data.Add(args);
@@ -158,7 +183,7 @@ public sealed class DatabaseConnector
 
         foreach (var row in data)
         {
-            query = "INSERT INTO questions values "+"(" + newQid + ", \"" + row[0] + "\", \"" + row[1] + "\", \"" + row[2] + "\", \"" + subject +
+            query = "INSERT INTO questions values "+"(" + newQid + ", \"" + row[0].Replace("\"", "") + "\", \"" + row[1].Replace("\"", "") + "\", \"" + row[2] + "\", \"" + subject +
                      "\", \"" + row[3] + "\");";
             try
             {
@@ -253,24 +278,27 @@ public sealed class DatabaseConnector
     }
 
 	public static void getBatches() {
-		SqliteDataReader reader = ExecuteQuery("SELECT batch FROM questions GROUP BY batch;");
-		DatabaseConnector.batches = new List<string>();
+		SqliteDataReader reader = ExecuteQuery("SELECT batch FROM questions where subject=\""+ subject+"\" GROUP BY batch;");
+		DatabaseConnector.batches.Clear();
 		while (reader.Read())
         {
 			DatabaseConnector.batches.Add(Convert.ToString(reader[reader.GetName(0)]));
 		}
-	}
+
+    }
 
 	public static void getSubjects() {
 		SqliteDataReader reader = ExecuteQuery("SELECT subject FROM questions GROUP BY subject;");
-		DatabaseConnector.subjects = new List<string>();
+		DatabaseConnector.subjects.Clear();
 		while (reader.Read())
         {
 			DatabaseConnector.subjects.Add(Convert.ToString(reader[reader.GetName(0)]));
 		}
 	}
 
-	public static void addQuestionsMemory(String query) {
+	public static void addQuestionsMemory()
+    {
+        string query = "select question, answer, image, batch, subject from questions where batch=\""+batch+"\" and subject=\""+subject+"\";";
 		SqliteDataReader reader = ExecuteQuery(query);
 		DatabaseConnector.Ques = new List<Question>();
 		while(reader.Read()) {

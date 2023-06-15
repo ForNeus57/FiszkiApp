@@ -84,10 +84,10 @@ public class HomeController : Controller
             }
             else Console.WriteLine("Subject already exists");
         }
-
+        if (DatabaseConnector.ActiveUser==null) return RedirectToAction("LogIn", "Home");
         if (DatabaseConnector.ActiveUser.Equals("admin")) return RedirectToAction("Index", "Admin");
-        if (DatabaseConnector.ActiveUser != null) return RedirectToAction("Index", "Home");
-        return RedirectToAction("LogIn", "Home");
+        return RedirectToAction("Index", "Home");
+        
     }
 
     public IActionResult AddQuestion()
@@ -100,6 +100,7 @@ public class HomeController : Controller
     [OutputCache(NoStore = true)]
     public IActionResult AddQuestion(Question model)
     {
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         if (model.path == null)
         {
             DatabaseConnector.AddSingleQuestion(model);
@@ -113,6 +114,7 @@ public class HomeController : Controller
     [HttpPost]
     public ActionResult Upload(IFormFile file, string subject)
     {
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         if (file != null && file.Length > 0)
         {
             // Zapisz plik w określonym miejscu lub przetwórz go
@@ -141,6 +143,7 @@ public class HomeController : Controller
 
     public IActionResult ChooseSubject()
     {
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         return View();
     }
 
@@ -161,35 +164,48 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult BatchQuestions(string batch)
     {
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         Console.WriteLine(batch);
-        DatabaseConnector.addQuestionsMemory(
-            "SELECT question, answer, image, subject, batch FROM questions WHERE batch=\"" + batch + "\";"
-        );
+        if (DatabaseConnector.batches.Contains(batch))
+        {
+            DatabaseConnector.batch = batch;
 
+            DatabaseConnector.addQuestionsMemory();
+            DatabaseConnector.subject = "";
+            DatabaseConnector.batch = "";
+            return RedirectToAction("Questions", "Home");
 
-        return RedirectToAction("Questions", "Home");
+        }
+        
+        return RedirectToAction("Learning", "Home");
     }
 
     [HttpPost]
     public IActionResult SubjectQuestions(string subject)
     {
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         Console.WriteLine(subject);
-        DatabaseConnector.addQuestionsMemory(
-            "SELECT question, answer, image, subject, batch FROM questions WHERE subject=\"" + subject + "\";"
-        );
-
-        return RedirectToAction("Questions", "Home");
+        
+        if (DatabaseConnector.subjects.Contains(subject))
+        {
+            DatabaseConnector.subject = subject;
+            DatabaseConnector.getBatches();
+        }
+        return RedirectToAction("Learning", "Home");
     }
 
     public IActionResult Learning()
     {
-        DatabaseConnector.getBatches();
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
+        // DatabaseConnector.getBatches();
         DatabaseConnector.getSubjects();
+        DatabaseConnector.Ques.Clear();
         return View();
     }
 
     public IActionResult Questions()
     {
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         if (!Statistics.stopwatchStarted)
         {
             Statistics.batchSize = DatabaseConnector.Ques.Count;
@@ -213,6 +229,7 @@ public class HomeController : Controller
 
     public IActionResult QuestionsSkip()
     {
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         DatabaseConnector.showAnswer = false;
         DatabaseConnector.RemoveKnownQuestion();
         Statistics.skips += 1;
@@ -230,6 +247,7 @@ public class HomeController : Controller
 
     public IActionResult QuestionsAwnser()
     {
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         DatabaseConnector.showAnswer = true;
         Statistics.skips += 1;
         return View("Questions");

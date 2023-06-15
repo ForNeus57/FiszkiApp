@@ -12,6 +12,31 @@
 
   <ItemGroup>
     <Folder Include="Database" />
+    <Folder Include="Data\asd\images" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\hyperbandTuner.png" />
+    <None Include="wwwroot\Images\kerasTuner.png" />
+    <None Include="wwwroot\Images\keras_soph.png" />
+    <None Include="wwwroot\Images\konwol.png" />
+    <None Include="wwwroot\Images\Manifold.png" />
+    <None Include="wwwroot\Images\metodyInicjalizacji.png" />
+    <None Include="wwwroot\Images\ml_map.png" />
+    <None Include="wwwroot\Images\neuron_McCulloch_Pitts.png" />
+    <None Include="wwwroot\Images\nienadzor.png" />
+    <None Include="wwwroot\Images\Normalization.png" />
+    <None Include="wwwroot\Images\padding.png" />
+    <None Include="wwwroot\Images\ramkowanie.png" />
+    <None Include="wwwroot\Images\randSearch.png" />
+    <None Include="wwwroot\Images\regresja_keras.png" />
+    <None Include="wwwroot\Images\reluelu.png" />
+    <None Include="wwwroot\Images\rezydualne.png" />
+    <None Include="wwwroot\Images\segmentacja_semantyczna.png" />
+    <None Include="wwwroot\Images\tensorboard.png" />
+    <None Include="wwwroot\Images\transfer.png" />
+    <None Include="wwwroot\Images\transferkod.png" />
+    <None Include="wwwroot\Images\transfer_praktyka.png" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,227 @@
+Co zmienia uczenie maszynowe w stosunki do tradycyjnego podejścia do rozwiązywania problemów;Uczenie algorytmu na podstawie danych zamiast pisania reguł ręcznie;;1
+Skrót CNN + co to;Convolutional Neural Network - przetwarzanie danych poprzez zmniejszanie rozmiaru (uogólnianie) | rozpoznawanie obrazów;;1
+Zastosowanie CNN;Przetwarzanie obrazów;;1
+Skrót RNN + co to;Recurrent Neural Network;;1
+Klasyfikacja/Regresja;Przypisywanie do grup/Szacowanie wartości;;1
+Uczenia ze względu na nadzór;Nadzorowane, nienadzorowane, częściowo nadzorowane, ze wzmocnieniem;;1
+Uczenie nadzorowane/nienadzorowane;Przy nadzorowanych etykietowanie wartości (klasyfikacja)/przy nienadzorowanym klasteryzacja;;1
+Uczenie częściowo nadzorowane;Dajemy pare przykładów, reszty się domyśla na podstawie klasteryzacji, którą przeprowadził;;1
+Uczenie wzmacniane;Funkcja nagrody i funkcja kary;;1
+Co to sample;Jeden wiersz danych;;1
+Co to batch;Zbiór próbek;;1
+Co to epoch;Ilość iteracji przez dane (podejść do uczenia);;1
+Uczenie ze względu na dostęp do danych;batch (kompletny zbiór danych), online (po kawałeczku, gdy wszystkie dane nie mieszczą się w pamięci);;1
+uczenie za względu na sposób uogólnienia;oparty o: instancje (model nieparametryczny) lub o model (model parametryczny);;1
+Model nieparametryczny;Oparty o instancje - klasyfikacja/regresja nowych danych na podstawie danych w modelu - gdy dużo danych to huj;;1
+Model parametryczny;Oparty o model - w pamięci trzymać trzeba tylko model, on wykonuje regresję/klasyfikację na podstawie tego czego się nauczył;;1
+Overfitting;Nadmierne dopasowanie danych - przeuczenie - niski błąd uczenia, wysoki błąd generalizacji;;1
+Underfitting;Niedouczenie - zły model (np. liniowy dla danych nieliniowych);;1
+Problemy dotyczące danych w uczeniu maszynowym;Za mało danych, dane niskiej jakości, nieistotne cechy/dane;;1
+Błąd uczenia i błąd generalizacji;Błąd zbioru uczącego/testującego;;1
+Jak radzić sobie z overfitting;Uprość model, zbierz więcej danych, usunąć outliers;;1
+Co to outlier;Dana bardzo odstająca od reszty;;1
+No Free Lunch Theorem;Nie znając założeń odnośnie danych, nie można powiedzieć, który model/algorytm będzie działał najlepiej;;1
+CSV do Dataframe;pd.read_csv("path");;1
+Statystyki dotyczące Dataframe;df.describe();;1
+Macierz korelacji Dataframe;df.corr() - kwadratowa;;1
+Funkcja do podziału danych na uczące i testowe;train_test_split(x,<y>, test_size, random_state) -> x_train, x_test, <y_train, y_test>;;1
+
+Zmiana kształtu np.array;.resize(wymiary);;2
+Zmiana np.array intów na boole;a = a>0;;2
+Zmiana np.array booli na inty;a.astype(int);;2
+Skrót SGD + co to;Stochastic Gradient Descent - Regresor/Klasyfikator - losowo wybiera punkt (kilka, ale no nie wszystkie bo kosztowne to) i na jego podstawie oblicza wszystkie pochodne, szukanie za pomocą pochodnej;;2
+Jak korzystać z regresorów i klasyfikatorów sklearn?;1.Stwórz model, 2.model.fit(x,y) 3. model.predict(x);;2
+K-fold cross validation;Podział danych uczących na k zbiorów, k-1 uczy a pozostały testuje i tak się zmieniają aby każdy sprawdzał raz, potem ocena/agregacja wyników;;2
+Jak skorzystać z cross_val_score() + po co;(no walidacja krzyżowa dla klasyfikatorów) cross_val_score(model, x, y scoring="accuracy", cv=<liczba gryp w walidacji krzyżowej>) -> lista dokładności;;2
+Co to macierz błędów (confusion matrix? + funkcja;[[true negative, false positive], [false negative, true positive]] - confusion_matrix(y_true, y_pred);;2
+Co to Precyzja + funkcja;Ile zakwalifikowanych jako git jest git - precision_score;;2
+Co to czułość? + funkcja;Ile zakwalifikowanych jako git zostało wykryte - recall_score;;2
+Relacja między precision a recall;Im większe precision tym mniejsze recall;;2
+Czym jest F1?;F1 = 2/(1/precision + 1/recall) - lepsze gdy precision i recall mają podobne wartości;;2
+Funkcja do F1 w sklearn;from sklearn.metrics import f_score(y_true, y_predict);;2
+Strategie przy klasyfikatorach;one-VS-one (klas. binarny dla każdej pary), one-VS-rest (klas. binarna dla każdej klasy);;2
+Strategia klasyfikacji dla SVM;one-VS-one;;2
+Sprawdzenie funkcji decyzyjnej (prawdopodobieństwa) dla klas. w sklearn;model.decision_function(x);;2
+Sprawdzenie klas dla klasyfikatora w sklearn;model._classes;;2
+Co to Multi-label classification + klasa w sklearn;Przypisanie do wielu klas jednocześnie (KNeighborsClassifier);;2
+Parametry modelu sklearn;n_jobs=<ilość wątków procesora, gdy -1 to wszystkie>, max_iter=<l. epok>, tol=<przerywa gdy zmiana mniejsza od tolerancji>, learning_rate=<krok uczenia>;;2
+
+Co to RMSE?;sqrt(MSE) - Root Mean Square Error;;3
+Regresja liniowa w sklearn (klasa);LinearRegression;;3
+Regresja/klasyfikacja oparta o instancje;KNN - K Nearest Neighbours - różna metryki odległości (euklidesowa, manhattan, Czybyszewa);;3
+Co to metody gradientowe + klasy;Stosowane gdy nie ma równania liniowego opisującego dane - Gradienty stosowane do minimalizacji funkcji celu (np. MSE) - Gradient Descent;;3
+Dlaczego Gradient Descent chujowy;Spory koszt obliczania pochodnych - dla każdego punktu;;3
+Regresja wielomianowa w sklearn;X_poly = PolynomialFeatures(degree=2).fit_transform(X)    LinearRegression().fit(X_poly, y);;3
+Regresja logistyczna;Regresja prawdopodobieństw, służy do klasyfikacji, oblicza prawdop. przynależności do każdej z klas;;3
+Co to softmax;Funkcja służąca do nalezienia prawdop. w Regresji Logistycznej gdy multi_class='multinomial';;3
+Funkcja do MSE;sklearn.metrics.mean_squared_error(y_true, y_pred) -> float;;3
+
+Co to SVM + skrót;Support Vector Machine - ma na celu wyznaczenie hiperpłaszczyzny oddzielającej zbiory danych;;4
+Co to droga w SVM;środek drogi to linia znajdująca sie jak najdalej od klas które od siebie oddziela, opiera się na dwóch skrajnych punktach (wektory nośne) tych klas;;4
+Problemy w SVC;Im szersza droga tym lepiej więc lepiej skalować dane;;4
+Jak skalować dane w sklearn;sklearn.preprocessing.StandardScaler(with_mean=<czy środkować dane>, with_std=<czy skalować dane dzięki wariancji>) | z = (x - średnia) / odchylenie standardowe;;4
+Co robić gdy outliers w SVM?;Hiperparametr C - funkcja kary, im większy tym mniejsza tolerancja na outliers - za duży -> overfitting;;4
+Skalowanie z wykorzystaniem Pipeline;model = Pipeline([("scaler", StandardScaler()),("linear_svc", LinearSVC()),]), model.fit(X, y);;4
+Co robić gdy klasyfikacja nieliniowa z SVM?;Dodać nową, sztuczną cechę aby łatwiej było oddzielić drogą, albo PolynomialFeatures->StandardScaler->LinearSVM albo StandardScaler->SVC(kernel='poly');;4
+Regresja liniowa dzięki SVM;Dopasowanie jak największej liczby instancji w "ulicy", minimalizując naruszenie ustalonej szerokości drogi - LinearSVR(epsilon).fit(X, y);;4
+Regresja nieliniowa dzięki SVM;SVR(kernel="poly", degree=2,C, epsilon, gamma="scale").fit(X, y);;4
+Co to epsilon w SVM;Szerokość drogi;;4
+Po co skalować dane dzięki StandardScaler;Centrowanie i skalowanie każdej danej osobno w celu regularyzacji danych, czasami pomaga zwiększyć skuteczność uczenia;;4
+
+Co to drzewa decyzyjne?;Dosłownie drzewa wyborów, każde rozgałęzienie to wybór wartości cech, liście to klasy, nie potrzeba skalowania cech, nie zakładają modelu danych, model nieparametryczny, skłonność do overfittingu;;5
+Klasa w sklearn do drzew decyzyjnych + parametry;DecisionTreeClassifier(max_depth, min_samples_leaf, min_samples_split, criterion, splitter, max_features);;5
+Co to gini w drzewach decyzyjnych;Zanieczyszczenie, ile instancji należy do klasy;;5
+Co to criterion w drzewach decyzyjnych;Funkcja określająca jakość splitu w drzewie;;5
+Co to splitter w drzewach decyzyjnych;Funkcja określająca jaki split wybrać w drzewie;;5
+Co to max_features w drzewach decyzyjnych;Maksymalna liczba cech branych pod uwagę w węźle rozdzielającym;;5
+Co to value w drzewach decyzyjnych;Ile instancji w każdej klasie (klasyfikator) albo średnia z wszystkich wartości (regresor);;5
+Criterion dla klasyfikatora i regresora DecisionTree w sklearn;gini, entropy, log_loss (klasyfikator) lub absolute_error, poisson, squared_error;;5
+Algorytm CART;Classification and Regression Tree - tworzy drzewo binarne,  alg. zachłanny, ;;5
+Co to alg. zachłanny?;Na każdym kroku dokonuje najbardziej rokującego wyboru;;5
+Algorytmy tworzenia drzew decyzyjnych;CART, ID3, C4.5;;5
+Eksport drzewa decyzyjnego do obrazka;sklearn.tree.export_graphviz(model, "bc.dot"), potem pydot.graph_from_dot_file('bc.dot')[0].write_png('bc.png');;5
+
+Co to Ensemble;Wykorzystanie wielu klasyfikatorów - głos większości wygrywa;;6
+Strategie głosowania w Ensemble; Hard Voting (głos większości - każdy dostarcza klasę) albo Soft Voting (każdy dostarcza prawdop. a ono jest uśredniane dla każdej klasy);;6
+Kiedy Ensemble działa dobrze?;Gdy każdy model uczony na innych danych;;6
+Tworzenie modelu Ensemble;sklearn.ensemble.VotingClassifier(estimators=[('lr',model)], voting='hard');;6
+Co to Bagging (Bootstrap Aggregating)?;Samplowanie z powtórzeniami (dzieli zbiór na mniejsze z powtórzeniami) bootstrap = True;;6
+Co to Pasting?;Samplowanie bez powtórzeń (dzieli zbiór na mniejsze rozłączne - klasyfikatory niezależne) bootstrap = False;;6
+Tworzenie bagging/pasting classifier;BaggingClassifier(DecisionTreeClassifier() (/lub coś innego), n_estimators, max_samples(liczba instancji losowanych do uczenia każdego), bootstrap, oob_score (czy liczy));;6
+Co to OOB w BaggingClassifier i jak dostać?;błąd predykcji na każdej próbce, BaggingClassifier(oob_score=True).oob_score;;6
+Wybór cech (parametry) w BaggingClassifier;bootstrap_features = True (z powtórzeniami) albo False (bez powtórzeń) | max_features (liczba cech do wylosowania);;6
+Sposoby wyboru cech w BaggingClassifier;Random Patches (wybór instancji i cech) | Random Subspaces (wszystkie instancje i wybór cech - bootstrap=False, max samples=1.0, bootstrap_features=True);;6
+Co to RandomForest?;Dosłownie BaggingClassifier+DecisionTreeClassifier+max_samples=1.0 (te same hiperparametry), szuka cech do podziału węzła spośród losowo wybranego podzbioru;;6
+Podaj ważności cech w RandomForest + nazwy tych cech;model.feature_importances_ -> np.ndarray oraz model.feature_names_in -> np.ndarray;;6
+Podaj estymatory w BaggingClf;model.estimators_ -> list;;6
+Podaj cechy wykorzystane przez estymatory w BaggingClf;model.estimators_features_ -> list;;6
+Co to algorytm AdaBoost;Uczenie sekwencyjne - jeden uczy przekazuje kolejnemu, każda instancja ma wagę, wszyscy po nauczeniu wykorzystywani do predykcji | AdaBoostClassifier(estimator, n_estimators, learning_rate);;6
+Co to algorytm Gradient Boosting;sekwencyjny, gdy niska szybkość uczenia trzeba więcej regresorów;;6
+Sposoby na Ensemble (klasy);BaggingClassifier, RandomForest, AdaBoostClassifier, GradientBoostingRegressor, Stacking(Clf/Reg);;6
+Stacking w Ensemble;Stacking(Clf/Reg) - Sposób automatyzacji agregacji wyników, każdy podmodel ma wagę;;6
+Problemy błędu generalizacji w Ensemble;Obciążenie (Bias - zbyt prosty model, underfitting) oraz zmienność (Variance - zbyt złożony model, overfitting);;6
+Bias-Variance Tradeoff;zwiększ złożoność modelu (V-rośnie, B-maleje) i na odwrót | Regularyzacja - zmniejsz złożoność modelu aby mógł lepiej regularyzować;;6
+Metryki opisujące model;RMSE | MSE | Accuracy | F1 (Precision, Recall) | Confusion Matrix;;6
+
+Kategorie uczenia nienadzorowanego;Klasteryzacja, Detekcja anomalii, Estymacja gęstości;;7
+Co to Klasteryzacja;Coś jak klasyfikacja, trzeba dane pogrupować, ale nie wiadomo ile klas;;7
+Algorytmy klasteryzacji;K-means, DBSCAN;;7
+Co to algorytm K-means?;Stara się znaleźć środek każdego z k skupisk, przyporządkowuje na podstawie modelu (odległości od centroidu) | Uruchamiany 10 razy, wybiera model z najmniejszą inercją;;7
+Co to inercja?;średnio-kwadratowa odległość między instancjami i centroidami malejąca wraz ze wzrostem ilości klastrów;;7
+Po czym poznać że można zatrzymać epokę w K-means?;Ubytek inercji gwałtownie rośnie - łokieć;;7
+Co to silhouette score?;Wskaźnik sylwetkowy, s=(a-b)/max(a,b) | a - śr. dol. w grupie, b - śr odl. punktu do obcego centroidu | im większy tym lepiej;;7
+Klasa do Kmeans w sklearn;KMeans(n_clusters);;7
+Funkcja do silhouette_score w sklearn (Klasteryzacja);silhouette_score(x, model.labels_);;7
+Namiary na przynależność do centroidów w KMeans() i DBSCAN();model.labels_, w DBSCAN -1 oznacza outlier;;7
+Namiary na inercję w KMeans();model.inertia_;;7
+Co to DBSCAN;Density-Based Spatial Clustering of Applications with Noise | eliminuje outliers ;;7
+Jak działa DBSCAN?;Dla każdego punktu liczy ile punktów odległych o <eps. jak wystarczająco dużo to Tworzymy rdzeń (core), jak kilka core odległych o <eps to łączymy w klaster;;7
+Klasa do DBSCAN w sklearn;DBSCAN(eps=<tolerancja na przynależność>, min_samples=<minimalna ilość próbek aby utworzyć rdzeń (klaster)>);;7
+Namiar na centroidy w KMeans();model.custer_centers;;7
+
+Problemy wielowymiarowości;instancje nie są równomiernie rozmieszczone, niektóre cechy są nieistotne, niektóre cechy są silnie skorelowane;;8
+Co to projekcja?;Znalezienie hiperprzestrzeni i mniejszej ilości wymiarów, dobrze opisującej dane (mse);;8
+Co to manifold?;Redukcja wymiarów za pomocą wzoru;Manifold.png;8
+Co to PCA?;Principal Component Analysis - szukaj hiperpłaszczyzny najbliżej instancji i rzutuj na nią instancje (+ centrowanie), jak mała wariancja to wymiar odrzucamy;;8
+Co to zmienność danych?;Ilość instancji;;8
+Co to SVD;Singular Value Decomposition - badanie zależności wektorów od siebie (wekt. i wart. własne) standaryzacja zmiennych tak, aby średnia była =0 | składowa główna - wektor własny odpowiadający największej wartości własnej, reszta to pozostałe składowe;;8
+Klasa do PCA;sklearn.decomposition.PCA(n_components=<ilość wymiarów do pozostawienia | albo minimalna ilość względnej wariancji/zmienności jaką zapewnić>);;8
+Współczynnik zmienności wymiarów w PCA;pca.explained_variance_ratio_ - lista floatów sumujących się do 1 (gdy n_components==liczba wymiarów), jest to porównanie wpływu zmienności zmiennych na dane ;;8
+Co jeśli chcemy ograniczyć liczbę wymiarów i  zachowa¢ 80% zmienności danych?;PCA(n_components=0.8);;8
+Fit i transformacja danych w PCA;x2 = pca.fit_transform(x);;8
+Odzyskiwanie danych przetransformowanych dzięki PCA;pca.inverse_transform();;8
+Nazwa najbardziej istotnego wymiaru według PCA;dataset.feature_names[np.argmax(abs(pca.components_[0]))];;8
+Co to RandomizedCPA()?;PCA z losowym SVD, złożoność zależy od n_components a nie n_features (pca), więc działa szybko dla małych n_components | jest gorszy gdy zmienna liczba instancji;;8
+Co to IncrementalPCA(n_components);Wersja PCA, która dziali zb. uczący na mini-batche (gdy za duży aby w pamięci zmieścić) | trzeba podać n_components;;8
+Argument domyślny dla n_components w PCA;n_components=min(n_samples, n_features);;8
+Implementacja manifold w sklearn;sklearn.manifold.LocallyLinearEmbedding(n_components=<jak w PCA>, n_neighbors) | używamy .fit_transform() | transformacja odwrotna jest tricky - zachowuje lokalne odległości ale nie globalne;;8
+Algorytm wybory algorytmu w ML;;ml_map.png;8
+
+Pierwszy neuron;Jako bramki logiczne - McCulloch i Pitts;neuron_McCulloch_Pitts;9
+Rodzaje sieci neuronowych (Neural Networks);Artificial/Biological | ;;9
+Co to Perceptron;(Threshold Logic Unit | Linear Threshold Unit) Wejścia są liczbami, a każde wejście ma wagę, po za tym neuron ma bias | Wszystko sumujemy i dajemy funkcji schodkowej | Rosenblatt;;9
+Co to warstwa w pełni połączona/gęsta;Każdy neuron w warstwie jest połączony ze wszystkimi neuronami w warstwie poprzedzającej;;9
+Co to bias;Obciążenie neuronu;;9
+Funkcje schodkowe;sgn, heaviside;;9
+Co to bias neuron;Zawsze przekazuje tą samą wartość, nie ma wejść;;9
+Jak działa sieć neuronowa;Raz przechodzimy przez sieć, potem wracamy (od końca na początek) i wagi są aktualizowane;;9
+Sieci neuronowe w sklearn;sklearn.linear_model.Perceptron();;9
+Z czym sobie źle radzi perceptron?;XOR - trzeba dodać warstwę;;9
+Co to MLP?;Multi-Layer Perceptron, no perceptron wielowarstwowy;;9
+Algorytm uczenia sieci używany od dawna;backpropagation (1986 - Rumelhart, Hinton i Williams) | przechodzimy sieć raz do przodu i raz wstecz, obliczamy gradient błędu i modyfikujemy wagi;;9
+Funkcje aktywacji dla propagacji wstecznej;sigmoid, tanh, ReLU;;9
+Ile neuronów wyjściowych w perceptronie?;tyle ile wymiarów lub klas;;9
+Do czego ReLU?;Do tego aby wyjście było dodatnie;;9
+Do czego sigmoid i tanh?;Do tego aby wartości były w zadanym przedziale;;9
+Funkcje straty;Mean Square Error | Mean Absolute Error | Hubera - mniej wrażliwa na outlier;;9
+Warstwa wyjściowa dla klasyfikacji binarnej;1 neuron wyjściowy i aktywacja funkcją logistyczną;;9
+Warstwa wyjściowa dla klasyfikacji wieloetykietowej;1 neuron na etykietę i aktywacja funkcją logistyczną;;9
+Warstwa wyjściowa dla klasyfikacji wieloklasowa;1 neuron na klasę i aktywacja funkcją softmax;;9
+Co to softmax;Funkcja normalizująca dane, minimalizuje entropię krzyżową;;9
+Jaka funkcja straty do klasyfikacji w NN;Log loss;;9
+Klasa do MLP w sklearn;sklearn.neural_network.MLPClassifier(activation itp.);;9
+Co to Perceptron().coef_?;Namiary na listę współczynników nadane cechom;;9
+Co to Perceptron().intercept_?;Namiary na listę współczynników funkcji decyzyjnej;;9
+Co to MLPClassifier().coefs_?;Namiary na listę macierzy wag warstw;;9
+Co to MLPClassifier().intercepts_?;Namiary na listę wektorów biasów warstw;;9
+
+keras.models.Sequential();Klasa do sieci neuronowych, zakłada że warstwy występują po sobie szeregowo;;10
+Warstwa normalizująca w keras;keras.layers.Normalization(input_shape=[], axis=None) | przesuwa i skaluje dane aby średnia == 0 i odch. stand. == 1;;10
+Skalowanie danych w sklearn i w keras;sklearn.preprocessing.StandardScaler() | keras.layers.Normalization();;10
+Dodanie warstwy Normalization do sieci;;Normalization.png;10
+Analiza, podsumowanie struktury modelu w keras (warstwy, ilość parametrów trenowalnych i nietrenowalnych);model.summary();;10
+Kompilacja modelu w keras + po co?;model.compile(loss, optimizer, metrics=["accuracy"]) | po to aby przekazać funkcję straty, optimizer i metryki;;10
+Jak rozpocząć uczenie modelu w keras?;model.fit(x,y, epochs, validation_data=(xv, yv), callbacks) | zamiast validation_data można validation_split=0.2, wtedy samo dzieli;;10
+Regresja w keras;;regresja_keras.png;10
+Tworzenie bardziej złożonej struktury sieci w keras;;keras_soph.png;10
+Zapisanie modelu w keras;model.compile() | model.fit() | model.save("my_keras_model.h5");;10
+Odczyt z pliku modelu w keras;model= keras.models.load_model("my_keras_model.h5") | model.predict();;10
+Co to callbacki w keras?;Obiekty mogące wykonywać akcje w trakcie różnych etapów nauki;;10
+Callbacki w keras;keras.callbacks.EarlyStopping() | ModelCheckpoint - zapis punktów kontrolnych | tensorboard - wizualizacja procesu uczenia;;10
+Co to Tensorboard + użycie;Służy do wizualizacji procesu uczenia;tensorboard.png;10
+Hiperparametry w uczeniu sieci MLP;liczba warstw ukrytych | liczba neuronów w w. ukrytych | metoda inicjalizacji wag | krok algorytmu uczenia | Krok uczenia | Algorytm optymalizacji | Rozmiar wsadu (batch) | Funkcja aktywacji | Liczba epok;;10
+Szukanie hiperparametrów w sklearn i tf.keras;sklearn.model_selection.GridSearchCV i RandomizedSearchCV | scikeras.wrappers.KerasRegressor(Classifier) - obudowują model, łatwiej przeszukać chyba;;10
+Jak wyszukać odpowiednią ilość warstw ukrytych w sieciach neuronowych?;Zwiększamy ilość warstw aż do przeuczenia;;10
+Jak wyszukać odpowiednią ilość neuronów na warstwę w sieciach neuronowych?;Sieci prostokątne bo podajemy jeden parametr | Zwiększamy ilość neuronów aż do przeuczenia | Można dać ich bardzo dużo i wykorzystać EarlyStopping;;10
+Warstwa do spłaszczania danych w keras;kr.layers.Flatten();;10
+
+Narzędzia do optymalizacji hiperparametrów w keras;KerasTuner | Hyperas | HyperOpt | scikit_optimize | sklearn_deap;;11
+Czemu odpowiadają warstwy niższe, pośrednie i wyższe w sieciach neuronowych?;Niższe liniom na obrazie, pośrednie figurom, wysokie np. twarzom;;11
+Jak szukać parametrów z sklearn.model_selection.RandomizedSearchCV;;rendSearch.png;11
+Co to KerasTuner?;Moduł pozwalający na strojenie parametrów modelu | tworzymy funkcję przyjmującą obiekt HyperParameters - ona wyłuskuje parametry i buduje model | funkcja wykorzystywana przez klasę Tuner do szukania;;11
+Jak uruchomić kerastuner?;;keresTuner.png;11
+KerasTuner z Hyperband;;hyperbandTuner.png;11
+Co może pójść nie tak w trakcie uczenia?;Szybko malejące lub rosnące gradienty podczas „powrotu” przez sieć – dolne warstwy się nie uczą | Za mało danych etykietowanych | powolne uczenie sieci | więcej parametrów -> ryzyko przeuczenia;;11
+Co to eksplodujące/zanikające gradienty?;W trakcie korekty wag, gdy dochodzimy do niższych warstw, gradienty niebezpiecznie rosną/maleją, przez ci najniższe warstwy się nie uczą;;11
+Metody inicjalizacji wag (Glorot, He, LeCun);;metodyInicjalizacji.png;11
+Problem z ReLU;Umierające neurony - suma ważona wejść zawsze ujemna, bo w -niesk. relu idzie o -niesk. | naprawia to ELU;reluelu.png;11
+Jak poprawić stabilność gradientów uczenia?;funkcja ELU, metoda He | dodać warstwy keras.layers.BatchNormalization() przed lub po każdej warstwie ukrytej - centrowanie + normalizacja wejścia + skalowanie i przesunięcie wyniku;;11
+Co to uczenie transferowe?;Wykorzystanie wag modelu już nauczonego, dotyczącego podobnego problemu | raczej wykorzystujemy warstwy niższe;transfer.png;11
+Jak używać uczenia transferowego?;;transferkod.png;11
+Nienadzorowane uczenie wstępne;;nienadzor.png;11
+Sposoby na przyspieszenie uczenia;Dobra strategia inicjalizacji wag połączeń | dobra funkcja aktywacji korzystanie z normalizacji wsadów | uczenie transferowe |  wykorzystanie algorytmu optymalizacji innego niż gradientowy;;11
+Algorytmy gradientowe z pędem + co to?;Ogólnie wartości gradientów przekładają sie na przyspieszenia zamiast prędkości | Nesterov, AdaGrad,  ;;11
+Użycie algorytmów gradientowych z pędem w SGD, Nesterov, Adam, AdaGrad;keras.optimizers.SGD(momentum=0.9) | SGD(nesterov=True) | keras.optimizers.Adam();;11
+Wyłuskać parametry najlepszego modelu w sklearn.RandomizedSearchCV();search.get_best_hyperparameters(1)[0].values;;11
+Wyłuskać najlepszy model w sklearn.RandomizedSearchCV();search.get_best_models(num_models=1)[0];;11
+
+Struktura warstw konwolucyjnych;Macierze (2D), jak ma wiele filtrów to 3D - neurony danej mapy cech warstwy wyższej połączone są z odpowiednimi neuronami wszystkich map cech warstwy niższej;konwol.png;12
+Filtry w CNN;Każdy neuron ma swój kernel przez który przesiewa dane;;12
+Co to mapa cech w CNN;Jest zwracana przez warstwę konwolucyjną, której neurony mają ten sam filtr;;12
+Rodzaje wypełnienia w CNN;;padding.png;12
+Warstwa konwolucyjna w keras;conv = keras.layers.Conv2D(filters=<ilość filtrów>, kernel_size=<rozmiar jąder/filtrów>, strides=<krok przesunięcia jądra>, padding="<same/valid>", activation);;12
+Obliczanie ilości parametrów warstwy konwolucyjnej;(a × a <wymiary filtru> × 3 <bo RGB> + 1 <gdy padding=="same">) × b <ilość filtrów>;;12
+Obliczanie ilości neuronów warstwy konwolucyjnej;każda z b <ilość filtrów> map cech zawiera x × y <wymiary obrazka> neuronów, z których każdy musi obliczyć ważoną sumę a × a <wymiary filtru> × 3 <bo RGB> wejść;;12
+Masa map cech jednej instancji (danej w zbiorze treningowym);x × y <wymiary obrazka> × b <ilość filtrów> × 32 <int size> bitów;;12
+Co to warstwy zbierające w CNN + klasa w keras do max; tf.kr.layers.MaxPooling2D(pool_size=<rozmiar kwadratu w którym agregujemy wartości>) - mają na celu zmniejszenie obrazka w celu obniżenia nakładów obliczeniowych | nie mają wag | korzystają z funkcji agregujących jak średnia czy maksimum;;12
+Dobre praktyki architektur CNN ;CCP (Convolution-Convolution-Pooling), czyli 2 warstwy Convolution a potem warstwa Pooling;;12
+Do czego warstwa kr.layers.Dropout(rate=<float od 0 do 1>);odrzucanie neuronów, które mają wagi podobne do innych, ogólnie zapobieganie overfitting (przeuczenie) | rate mówi o tym ile neuronów odrzucić;;12
+Sławne sieci konwolucyjne;AlexNet, LeNet-5, GoogLeNet;;12
+Uczenie rezydualne;Sieci robią się głębsze ale mają mniej parametrów | jest to uczenie w którym w sieci istnieją połączenia skrótowe, dzięki nim szybsze uczenie;rezydualne.png;12
+Sławna sieć rezydualna;ResNet;;12
+Uczenie transferowe w praktyce;;transfer_praktyka.png;12
+Obramkowanie obiektów na obrazach w keras (CNN);;ramkowanie.png;12
+Co to segmentacja semantyczna?;każdy piksel jest kolorowany zgodnie z klasą obiektu, którego jest częścią;segmentacja_semantyczna.png;12
+Co to sieć w pełni konwolucyjna?;FCN - Fully Convolutional Network - Nie ma warstw gęstych, więc sieć może przetwarzać obrazy o dowolnych rozmiarach;;12
+Ewaluacja modelu w keras;model.evaluate(x_pred, y_true) -> <zwraca wartość funkcji straty i metryki uczenia>;;12
+Jak zmienić warstwę na nieuczalną;layer.trainable = False;;12

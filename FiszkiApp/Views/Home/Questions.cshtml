@@ -13,6 +13,10 @@
         <div class="text-center">
             <h4>@DatabaseConnector.currentQuestion.ans</h4>
         </div>
+            if (DatabaseConnector.currentQuestion.image != null && !DatabaseConnector.currentQuestion.image.Equals(""))
+            {
+                <img src="~/Images/@DatabaseConnector.currentQuestion.image" alt="Answer">
+            }
     }
 }
 <br>
