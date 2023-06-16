@@ -171,8 +171,7 @@ public class HomeController : Controller
             DatabaseConnector.batch = batch;
 
             DatabaseConnector.addQuestionsMemory();
-            DatabaseConnector.subject = "";
-            DatabaseConnector.batch = "";
+            
             return RedirectToAction("Questions", "Home");
 
         }
@@ -219,6 +218,8 @@ public class HomeController : Controller
         {
             Statistics.stopwatch.Stop();
             DatabaseConnector.AddStat();
+            DatabaseConnector.subject = "";
+            DatabaseConnector.batch = "";
             return RedirectToAction("Index", "Home");
         }
 
@@ -237,6 +238,8 @@ public class HomeController : Controller
         {
             Statistics.stopwatch.Stop();
             DatabaseConnector.AddStat();
+            DatabaseConnector.subject = "";
+            DatabaseConnector.batch = "";
             message = "Congratulations, you know everything!";
             return RedirectToAction("Index", "Home");
         }
