@@ -8,7 +8,7 @@ Co to uczenie nadzorowane/nienadzorowane?;Przy nadzorowanych etykietowanie warto
 Co to uczenie częściowo nadzorowane?;Dajemy pare przykładów, reszty się domyśla na podstawie klasteryzacji, którą przeprowadził;;1
 Co to uczenie wzmacniane?;Funkcja nagrody i funkcja kary;;1
 Co to sample?;Jeden wiersz danych;;1
-Co to batch?Zbiór próbek;;1
+Co to batch?;Zbiór próbek;;1
 Co to epoch?;Iteracja przez dane (podejście do uczenia);;1
 Uczenie ze względu na dostęp do danych;batch (kompletny zbiór danych), online (po kawałeczku, gdy wszystkie dane nie mieszczą się w pamięci);;1
 uczenie za względu na sposób uogólnienia;oparty o: instancje (model nieparametryczny) lub o model (model parametryczny);;1
@@ -38,7 +38,7 @@ Co to Precyzja + funkcja;Ile zaklasyfikowanych jako x jest xem - precision_score
 Co to czułość? + funkcja;Ile zaklasyfikowanych jako x zostało wykryte - recall_score(y_true, y_pred);;2
 Relacja między precision a recall;Im większe precision tym mniejsze recall;;2
 Czym jest F1?;F1 = 2/(1/precision + 1/recall) - Powiązanie precision i recall w jedną wartość, najlepiej gdy precision i recall mają podobne i jak największe wartości;;2
-Funkcja do F1 w sklearn;from sklearn.metrics import f_score(y_true, y_predict);;2
+Funkcja do F1 w sklearn;from sklearn.metrics import f1_score(y_true, y_predict);;2
 Strategie wyboru klasy w klasyfikatorach;one-VS-one (klas. binarny dla każdej pary), one-VS-rest (klas. binarna dla każdej klasy);;2
 Strategia klasyfikacji dla SVM;one-VS-one;;2
 Sprawdzenie funkcji decyzyjnej (prawdopodobieństwa) dla klasyfkatorów w sklearn;model.decision_function(x);;2
