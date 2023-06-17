@@ -11,6 +11,9 @@ namespace FiszkiApp.Models;
 // * INFO: Aby zresetować bazę danych usuń plik ./Database/database.db
 // * INFO: Dane do szybkiego logowania: Login: "asd", hasło: "asd"   
 
+//! bardzo niestabilne, jak chcesz dodać przedmiot to dodaj csv do /Data/asd, a przedmiot do bazy danych, istnieje możliwość,
+//!że nie przepuści do nauki, bo ie ma takiego batcha w DB, ale tym się zajmę jak będzie  trochę luźniej (po egzaminach)
+
 public sealed class DatabaseConnector
 {
     private DatabaseConnector()
@@ -298,20 +301,42 @@ public sealed class DatabaseConnector
 
 	public static void addQuestionsMemory()
     {
-        string query = "select question, answer, image, batch, subject from questions where batch=\""+batch+"\" and subject=\""+subject+"\";";
-		SqliteDataReader reader = ExecuteQuery(query);
-		DatabaseConnector.Ques = new List<Question>();
-		while(reader.Read()) {
-			DatabaseConnector.Ques.Add(
-				new Question(
-					Convert.ToString(reader[reader.GetName(0)]),
-					Convert.ToString(reader[reader.GetName(1)]),
-					Convert.ToString(reader[reader.GetName(2)]),
-					Convert.ToString(reader[reader.GetName(3)]),
-					Convert.ToString(reader[reader.GetName(4)])
-				)
-			);
-		}
+  //       string query = "select question, answer, image, batch, subject from questions where batch=\""+batch+"\" and subject=\""+subject+"\";";
+		// SqliteDataReader reader = ExecuteQuery(query);
+		// DatabaseConnector.Ques = new List<Question>();
+		// while(reader.Read()) {
+		// 	DatabaseConnector.Ques.Add(
+		// 		new Question(
+		// 			Convert.ToString(reader[reader.GetName(0)]),
+		// 			Convert.ToString(reader[reader.GetName(1)]),
+		// 			Convert.ToString(reader[reader.GetName(2)]),
+		// 			Convert.ToString(reader[reader.GetName(3)]),
+		// 			Convert.ToString(reader[reader.GetName(4)])
+		// 		)
+		// 	);
+		// }
+        DatabaseConnector.Ques = new List<Question>();
+        foreach (var line in File.ReadLines(@"Data\asd\"+subject+".csv"))
+        {
+            if (line.Count(f => f == ';') == 3)
+            {
+                String[] split = line.Split(';');
+                DatabaseConnector.Ques.Add(
+                		new Question(
+                			split[0],
+                			split[1],
+                			split[2],
+                			split[3],
+                            subject
+                		)
+                	);
+
+            }
+            else Console.WriteLine(line);
+            
+        }
+        
+        
 	}
 
     public static void AddStat()
