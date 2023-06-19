@@ -54,6 +54,9 @@ public sealed class DatabaseConnector
     public static string subject;
     public static string batch;
 
+    public static int QNumber = 0;
+    public static int QKnownNumber = 0;
+
     public static DatabaseConnector GetInstance()
     {
         if (_instance == null) _instance = new DatabaseConnector();
@@ -279,6 +282,7 @@ public sealed class DatabaseConnector
     {
         Ques.RemoveAt(questionNumber);
         if (questionNumber >= Ques.Count) questionNumber = 0;
+        QKnownNumber++;
     }
 
     public static void getBatches()
@@ -319,26 +323,39 @@ public sealed class DatabaseConnector
         // 	);
         // }
         DatabaseConnector.Ques = new List<Question>();
+        List<int> batchNum = GetBatchNumbersFromRegex(batch);
         foreach (var line in File.ReadLines(@"Data\asd\" + subject + ".csv"))
         {
-            if (line.Count(f => f == ';') == 3)
+            bool cont = true;
+            foreach (var b in batchNum)
             {
-                String[] split = line.Split(';');
+                if (cont){
+                    if (line.Count(f => f == ';') == 3)
+                    {
+                        String[] split = line.Split(';');
 
-                if (batch.Equals(split[3]))
-                    DatabaseConnector.Ques.Add(
-                        new Question(
-                            split[0],
-                            split[1],
-                            split[2],
-                            split[3],
-                            subject
-                        )
-                    );
+                        if (b.ToString().Equals(split[3]))
+                        {
+                            DatabaseConnector.Ques.Add(
+                                new Question(
+                                    split[0],
+                                    split[1],
+                                    split[2],
+                                    split[3],
+                                    subject
+                                )
+                            );
+
+                            cont = false;
+                        }
+                    }
+                    else Console.WriteLine(line);
+                }
             }
-            else Console.WriteLine(line);
         }
         ShuffleQuestions();
+        QNumber = Ques.Count;
+        QKnownNumber = 0;
     }
 
     public static void AddStat()
@@ -390,5 +407,36 @@ public sealed class DatabaseConnector
         }
 
         return cont;
+    }
+
+    private static List<int> GetBatchNumbersFromRegex(String batchNum)
+    {
+        List<int> batchNumbers = new List<int>();
+        String regex = "[0-9]+(-[0-9]+)?(,[0-9]+(-[0-9]+)?)*";
+        var match = Regex.Match(batchNum, regex);
+
+        if (!match.Success)
+        {
+            Console.WriteLine(batchNum+" is not parsable");
+            return batchNumbers;
+        }
+        try
+        {
+            foreach (var b in batchNum.Split(','))
+            {
+                if (b.Contains('-'))
+                {
+                    String[] s = b.Split('-');
+                    for (int i = int.Parse(s[0]); i <= int.Parse(s[1]); i++) batchNumbers.Add(i);
+                }
+                else batchNumbers.Add(int.Parse(b));
+            }
+
+        }
+        catch (Exception e) when (e is FormatException or OverflowException)
+        {
+            Console.WriteLine(batchNum+" is not parsable");
+        }
+        return batchNumbers;
     }
 }

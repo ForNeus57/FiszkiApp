@@ -84,10 +84,10 @@ public class HomeController : Controller
             }
             else Console.WriteLine("Subject already exists");
         }
-        if (DatabaseConnector.ActiveUser==null) return RedirectToAction("LogIn", "Home");
+
+        if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         if (DatabaseConnector.ActiveUser.Equals("admin")) return RedirectToAction("Index", "Admin");
         return RedirectToAction("Index", "Home");
-        
     }
 
     public IActionResult AddQuestion()
@@ -166,17 +166,11 @@ public class HomeController : Controller
     {
         if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         Console.WriteLine(batch);
-        if (DatabaseConnector.batches.Contains(batch))
-        {
-            DatabaseConnector.batch = batch;
+        DatabaseConnector.batch = batch;
 
-            DatabaseConnector.addQuestionsMemory();
-            
-            return RedirectToAction("Questions", "Home");
+        DatabaseConnector.addQuestionsMemory();
 
-        }
-        
-        return RedirectToAction("Learning", "Home");
+        return RedirectToAction("Questions", "Home");
     }
 
     [HttpPost]
@@ -184,12 +178,13 @@ public class HomeController : Controller
     {
         if (DatabaseConnector.ActiveUser == null) return RedirectToAction("LogIn", "Home");
         Console.WriteLine(subject);
-        
+
         if (DatabaseConnector.subjects.Contains(subject))
         {
             DatabaseConnector.subject = subject;
             DatabaseConnector.getBatches();
         }
+
         return RedirectToAction("Learning", "Home");
     }
 
@@ -243,6 +238,7 @@ public class HomeController : Controller
             message = "Congratulations, you know everything!";
             return RedirectToAction("Index", "Home");
         }
+
         DatabaseConnector.NextQuestion();
 
         return View("Questions");

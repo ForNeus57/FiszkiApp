@@ -1,4 +1,4 @@
-Co zmienia uczenie maszynowe w stosunki do tradycyjnego podejścia do rozwiązywania problemów;Uczenie algorytmu na podstawie danych zamiast pisania reguł ręcznie;;1
+Co zmienia uczenie maszynowe w stosunku do tradycyjnego podejścia do rozwiązywania problemów;Uczenie algorytmu na podstawie danych zamiast pisania reguł ręcznie;;1
 Skrót CNN + co to?;Convolutional Neural Network - przetwarzanie danych poprzez zmniejszanie rozmiaru (uogólnianie) | rozpoznawanie obrazów;;1
 Zastosowanie CNN;Przetwarzanie obrazów;;1
 Skrót RNN + co to?;Recurrent Neural Network;;1
@@ -11,8 +11,8 @@ Co to sample?;Jeden wiersz danych;;1
 Co to batch?;Zbiór próbek;;1
 Co to epoch?;Iteracja przez dane (podejście do uczenia);;1
 Uczenie ze względu na dostęp do danych;batch (kompletny zbiór danych), online (po kawałeczku, gdy wszystkie dane nie mieszczą się w pamięci);;1
-uczenie za względu na sposób uogólnienia;oparty o: instancje (model nieparametryczny) lub o model (model parametryczny);;1
-Model nieparametryczny;Oparty o instancje - klasyfikacja/regresja nowych danych na podstawie danych w modelu - gdy dużo danych to huj;;1
+Uczenie za względu na sposób uogólnienia modelu;oparty o: instancje (model nieparametryczny) lub o model (model parametryczny);;1
+Model nieparametryczny;Oparty o instancje - klasyfikacja/regresja nowych danych na podstawie danych w modelu - gdy dużo danych to ciulowo;;1
 Model parametryczny;Oparty o model - w pamięci trzymać trzeba tylko model, on wykonuje regresję/klasyfikację na podstawie tego czego się nauczył;;1
 Overfitting;Nadmierne dopasowanie danych - przeuczenie - niski błąd uczenia, wysoki błąd generalizacji;;1
 Underfitting;Niedouczenie - zły model (np. liniowy dla danych nieliniowych);;1
@@ -22,51 +22,52 @@ Jak radzić sobie z overfitting;Uprość model, zbierz więcej danych, usunąć 
 Co to outlier;Dana bardzo odstająca od reszty;;1
 No Free Lunch Theorem;Nie znając założeń odnośnie danych, nie można powiedzieć, który model/algorytm będzie działał najlepiej;;1
 CSV do Dataframe;pd.read_csv("path");;1
-Statystyki dotyczące Dataframe;df.describe();;1
+Statystyki dotyczące Dataframe;df.describe() -> count, mean, std, min, max, percentyle;;1
 Macierz korelacji Dataframe;df.corr() - kwadratowa;;1
 Funkcja do podziału danych na uczące i testowe;train_test_split(x,<y>, test_size, random_state) -> x_train, x_test, <y_train, y_test>;;1
 
-Zmiana kształtu np.array;.resize(wymiary);;2
+Zmiana kształtu np.array;.resize(lista_wymiarów);;2
 Zmiana np.array intów na boole;a = a>0;;2
 Zmiana np.array booli na inty;a.astype(int);;2
 Skrót SGD + co to;Stochastic Gradient Descent - Regresor/Klasyfikator - losowo wybiera punkt (kilka, ale no nie wszystkie bo kosztowne to) i na jego podstawie oblicza wszystkie pochodne, szukanie za pomocą pochodnej;;2
 Jak korzystać z regresorów i klasyfikatorów sklearn?;1.Stwórz model, 2.model.fit(x,y) 3. model.predict(x);;2
 K-fold cross validation + klasa w sklearn;Podział danych uczących na k zbiorów, k-1 uczy a pozostały testuje i tak się zmieniają aby każdy sprawdzał raz, potem ocena/agregacja wyników | model_selection.KFold->split danych;;2
-Jak skorzystać z cross_val_score() + po co;(no walidacja krzyżowa dla klasyfikatorów) cross_val_score(model, x, y, scoring="accuracy", cv=<liczba grup w walidacji krzyżowej>) -> lista dokładności;;2
+Funkcja do walidacji krzyżowej w sklearn + po co się z niej korzysta?;(no walidacja krzyżowa dla klasyfikatorów) cross_val_score(model, x, y, scoring="accuracy", cv=<liczba grup w walidacji krzyżowej>) -> lista dokładności;;2
 Co to macierz błędów (confusion matrix? + funkcja);[[true negative, false positive], [false negative, true positive]] - confusion_matrix(y_true, y_pred);cross_val.png;2
-Co to Precyzja + funkcja;Ile zaklasyfikowanych jako x jest xem - precision_score(y_true, y_pred);;2
-Co to czułość? + funkcja;Ile zaklasyfikowanych jako x zostało wykryte - recall_score(y_true, y_pred);;2
+Co to Precyzja + funkcja;Ile zaklasyfikowanych jako x jest xem - precision_score(y_true, y_pred);prec.png;2
+Co to czułość? + funkcja;Ile x zostało poprawnie wykrytych - recall_score(y_true, y_pred);recall.png;2
 Relacja między precision a recall;Im większe precision tym mniejsze recall;;2
-Czym jest F1?;F1 = 2/(1/precision + 1/recall) - Powiązanie precision i recall w jedną wartość, najlepiej gdy precision i recall mają podobne i jak największe wartości;;2
+Czym jest F1?;Powiązanie precision i recall w jedną wartość, najlepiej gdy precision i recall mają podobne i jak największe wartości;f1.png;2
 Funkcja do F1 w sklearn;from sklearn.metrics import f1_score(y_true, y_predict);;2
 Strategie wyboru klasy w klasyfikatorach;one-VS-one (klas. binarny dla każdej pary), one-VS-rest (klas. binarna dla każdej klasy);;2
 Strategia klasyfikacji dla SVM;one-VS-one;;2
 Sprawdzenie funkcji decyzyjnej (prawdopodobieństwa) dla klasyfkatorów w sklearn;model.decision_function(x);;2
 Sprawdzenie klas dla klasyfikatora w sklearn;model._classes;;2
-Co to Multi-label classification + jak w sklearn;Przypisanie do wielu klas jednocześnie;multilabel.png;2
+Co to Multi-label classification + jak użyć w  sklearn;Przypisanie do wielu klas jednocześnie;multilabel.png;2
 Parametry modelu sklearn;n_jobs=<ilość wątków procesora, gdy -1 to wszystkie>, max_iter=<l. epok>, tol=<przerywa gdy zmiana mniejsza od tolerancji>, learning_rate=<krok uczenia>;;2
 
 Co to RMSE?;sqrt(MSE) - Root Mean Square Error;;3
 Regresja liniowa w sklearn (klasa);LinearRegression;;3
-Regresja/klasyfikacja oparta o instancje;KNN - K Nearest Neighbours - różna metryki odległości (euklidesowa, manhattan, Czybyszewa);;3
-Co to metody gradientowe + klasy;Stosowane gdy nie ma równania liniowego opisującego dane - Gradienty stosowane do minimalizacji funkcji celu (np. MSE) - Gradient Descent;;3
-Dlaczego Gradient Descent chujowy;Spory koszt obliczania pochodnych - dla każdego punktu;;3
+Regresja/klasyfikacja oparta o instancje + klasa w sklearn;KNN - K Nearest Neighbors - wybiera k najbliższych sąsiadów i na podstawie ich wartości szacuje wartość | różne metryki odległości (euklidesowa, manhattan, Czybyszewa) | KNeighborsClassifier/Regressor;;3
+Co to metody gradientowe + klasy;Stosowane gdy nie ma równania liniowego opisującego dane - Gradienty stosowane do minimalizacji funkcji celu (np. MSE) - sklearn.linear_model.SGDClassifier/Regressor;;3
+Dlaczego zwykły Gradient Descent ciulowy;Spory koszt obliczania pochodnych (na podstawie każdego punktu);;3
 Regresja wielomianowa w sklearn;X_poly = PolynomialFeatures(degree=2).fit_transform(X)    LinearRegression().fit(X_poly, y);;3
-Regresja logistyczna;Regresja prawdopodobieństw, służy do klasyfikacji, oblicza prawdop. przynależności do każdej z klas;;3
-Co to softmax;Funkcja służąca do nalezienia prawdop. w Regresji Logistycznej gdy multi_class='multinomial';;3
+Regresja logistyczna + klasa w sklearn;Regresja prawdopodobieństw, służy do klasyfikacji, oblicza prawdop. przynależności do każdej z klas | sklearn.linear_model.LogisticRegression;;3
+Co to softmax;Funkcja aktywacji służąca do znalezienia prawdop. w Regresji Logistycznej gdy multi_class='multinomial';;3
 Funkcja do MSE;sklearn.metrics.mean_squared_error(y_true, y_pred) -> float;;3
 
 Co to SVM + skrót;Support Vector Machine - ma na celu wyznaczenie hiperpłaszczyzny oddzielającej zbiory danych;;4
-Co to droga w SVM;środek drogi to linia znajdująca sie jak najdalej od klas które od siebie oddziela, opiera się na dwóch skrajnych punktach (wektory nośne) tych klas;;4
-Problemy w SVC;Im szersza droga tym lepiej więc lepiej skalować dane;;4
-Jak skalować dane w sklearn;sklearn.preprocessing.StandardScaler(with_mean=<czy środkować dane>, with_std=<czy skalować dane dzięki wariancji>) | z = (x - średnia) / odchylenie standardowe;;4
+Co to droga w SVM;środek drogi to linia znajdująca sie jak najdalej od klas które od siebie oddziela, opiera się na dwóch skrajnych punktach (wektory nośne) tych klas | droga to zbiór punktów w odległości <= epsilon od tej linii;;4
+Jaka szerokość drogi najlepsza w SVC;Im szersza droga tym lepiej więc lepiej skalować dane;;4
+Jak skalować dane w sklearn;sklearn.preprocessing.StandardScaler(with_mean=<czy środkować dane>, with_std=<czy skalować dane dzięki odchyleniu standardowemu>) | z = (x - średnia) / odchylenie standardowe;;4
 Co robić gdy outliers w SVM?;Hiperparametr C - funkcja kary, im większy tym mniejsza tolerancja na outliers - za duży -> overfitting;;4
 Skalowanie z wykorzystaniem Pipeline;model = Pipeline([("scaler", StandardScaler()),("linear_svc", LinearSVC()),]), model.fit(X, y);;4
 Co robić gdy klasyfikacja nieliniowa z SVM?;Dodać nową, sztuczną cechę aby łatwiej było oddzielić drogą, albo PolynomialFeatures->StandardScaler->LinearSVM albo StandardScaler->SVC(kernel='poly');;4
 Regresja liniowa dzięki SVM;Dopasowanie jak największej liczby instancji w "ulicy", minimalizując naruszenie ustalonej szerokości drogi - LinearSVR(epsilon).fit(X, y);;4
 Regresja nieliniowa dzięki SVM;SVR(kernel="poly", degree=2,C, epsilon, gamma="scale").fit(X, y);;4
-Co to epsilon w SVM;Szerokość drogi;;4
+Co to epsilon w SVM;Szerokość połowy drogi;;4
 Po co skalować dane dzięki StandardScaler;Centrowanie i skalowanie każdej danej osobno w celu regularyzacji danych, czasami pomaga zwiększyć skuteczność uczenia;;4
+Czym się różnią klasy SVC i SVR w sklearn <SVM>;SVC - klasteryzacja | SVR - Regresja;;4 
 
 Co to drzewa decyzyjne?;Dosłownie drzewa wyborów, każde rozgałęzienie to wybór wartości cech, liście to klasy, nie potrzeba skalowania cech, nie zakładają modelu danych, model nieparametryczny, skłonność do overfittingu;;5
 Klasa w sklearn do drzew decyzyjnych + parametry;DecisionTreeClassifier(max_depth, min_samples_leaf, min_samples_split, criterion, splitter, max_features);;5
@@ -225,3 +226,4 @@ Co to segmentacja semantyczna?;każdy piksel jest kolorowany zgodnie z klasą ob
 Co to sieć w pełni konwolucyjna?;FCN - Fully Convolutional Network - Nie ma warstw gęstych, więc sieć może przetwarzać obrazy o dowolnych rozmiarach;;12
 Ewaluacja modelu w keras;model.evaluate(x_pred, y_true) -> <zwraca wartość funkcji straty i metryki uczenia>;;12
 Jak zmienić warstwę na nieuczalną;layer.trainable = False;;12
+Jak spłaszczyć np.array?;np.ravel()-> 1D array;;12
