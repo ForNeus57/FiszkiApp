@@ -71,12 +71,12 @@ Czym się różnią klasy SVC i SVR w sklearn <SVM>;SVC - klasteryzacja | SVR - 
 
 Co to drzewa decyzyjne?;Dosłownie drzewa wyborów, każde rozgałęzienie to wybór wartości cech, liście to klasy, nie potrzeba skalowania cech, nie zakładają modelu danych, model nieparametryczny, skłonność do overfittingu;;5
 Klasa w sklearn do drzew decyzyjnych + parametry;DecisionTreeClassifier(max_depth, min_samples_leaf, min_samples_split, criterion, splitter, max_features);;5
-Co to gini w drzewach decyzyjnych;Zanieczyszczenie, ile instancji należy do klasy;;5
+Co to gini w drzewach decyzyjnych;Zanieczyszczenie, ile instancji obcych klas należy do liścia;;5
 Co to criterion w drzewach decyzyjnych;Funkcja określająca jakość splitu w drzewie;;5
 Co to splitter w drzewach decyzyjnych;Funkcja określająca jaki split wybrać w drzewie;;5
 Co to max_features w drzewach decyzyjnych;Maksymalna liczba cech branych pod uwagę w węźle rozdzielającym;;5
-Co to value w drzewach decyzyjnych;Ile instancji w każdej klasie (klasyfikator) albo średnia z wszystkich wartości (regresor);;5
-Criterion dla klasyfikatora i regresora DecisionTree w sklearn;gini, entropy, log_loss (klasyfikator) lub absolute_error, poisson, squared_error;;5
+Co to value w drzewach decyzyjnych;Ile instancji w każdej klasie (klasyfikator) albo średnia z wszystkich wartości (regresor) | tyczy się węzła drzewa;;5
+Jakie istnieją criterion dla klasyfikatora i regresora DecisionTree w sklearn;gini, entropy, log_loss (klasyfikator) lub absolute_error, poisson, squared_error (regresor);;5
 Algorytm CART;Classification and Regression Tree - tworzy drzewo binarne,  alg. zachłanny, ;;5
 Co to alg. zachłanny?;Na każdym kroku dokonuje najbardziej rokującego wyboru;;5
 Algorytmy tworzenia drzew decyzyjnych;CART, ID3, C4.5;;5
